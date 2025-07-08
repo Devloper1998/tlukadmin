@@ -15,6 +15,7 @@ $event_name    = isset($_POST['event_name'])?trim($_POST['event_name']):'';
 $date    = isset($_POST['date'])?trim($_POST['date']):'';
 $start_time    = isset($_POST['start_time'])?trim($_POST['start_time']):'';
 $end_time    = isset($_POST['end_time'])?trim($_POST['end_time']):'';
+$end_date    = isset($_POST['end_date'])?trim($_POST['end_date']):'';
 $description1    = isset($_POST['description1'])?trim($_POST['description1']):'';
 $description2    = isset($_POST['description2'])?trim($_POST['description2']):'';
 $event_location    = isset($_POST['event_location'])?trim($_POST['event_location']):'';
@@ -85,7 +86,7 @@ foreach ($imageFields as $field) {
 
 if(isset($_POST["action"]) && $_POST['action'] == 'save'){
 
-	 $insEventQry = "INSERT INTO ".$tableName." SET event_name = '".$event_name."', date ='".$date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',image ='".$image."',event_location ='".$event_location."',randomId = '".$randomId."'";
+	 $insEventQry = "INSERT INTO ".$tableName." SET event_name = '".$event_name."', date ='".$date."',end_date ='".$end_date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',image ='".$image."',event_location ='".$event_location."',randomId = '".$randomId."'";
 	  $insData =$crud->execute($insEventQry);
 
       
@@ -126,7 +127,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
 
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
 
-     $upEventQry = "UPDATE ".$tableName." SET event_name = '".$event_name."',date ='".$date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',image ='".$image."',event_location ='".$event_location."' where randomId = '".$hdn_id."'";
+     $upEventQry = "UPDATE ".$tableName." SET event_name = '".$event_name."',date ='".$date."',end_date ='".$end_date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',image ='".$image."',event_location ='".$event_location."' where randomId = '".$hdn_id."'";
     $updateData =$crud->execute($upEventQry);
         if($updateData)
         {
