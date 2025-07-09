@@ -1,5 +1,6 @@
 let convertedBlobs = {
   main_image: null,
+  home_image: null,
   image: null,
 };
 function loadData() {
@@ -60,8 +61,8 @@ function loadData() {
     reader.onload = function (e) {
       const img = new Image();
       img.onload = function () {
-        let requiredWidth = 0;
-        let requiredHeight = 0;
+        let requiredWidth = img.width;
+        let requiredHeight = img.height;
 
         if (fieldId === "main_image") {
           requiredWidth = 800;
@@ -70,13 +71,6 @@ function loadData() {
           requiredWidth = 1600;
           requiredHeight = 1200;
         }
-
-        // if (img.width < requiredWidth || img.height < requiredHeight) {
-        //   alert(`${fieldId.replace('_', ' ')} must be at least ${requiredWidth}×${requiredHeight} pixels.`);
-        //   $(input).val('');
-        //   $(previewSelector).hide();
-        //   return;
-        // }
 
         // Resize using canvas
         const canvas = document.createElement("canvas");
@@ -151,6 +145,11 @@ function loadData() {
                 
 
                 <a href="#" title="Delete" onclick="RemoveAccount(${oData.id})"><i class="fas fa-trash"></i></a>&nbsp;&nbsp; `;
+          if (oData.status == "1") {
+            bnTd += `<input type="checkbox" onclick="displayfeature(${oData.id},0)" name="displayItems" style="width:15px; height: 15px;" checked>`;
+          } else {
+            bnTd += `<input type="checkbox" onclick="displayfeature(${oData.id},1)" name="displayItems" style="width:15px; height: 15px;">`;
+          }
           $(nTd).html(bnTd);
         },
       },
@@ -350,9 +349,15 @@ $(function () {
       //       formdata.append(field, files[0]);
       //     }
       //   });
-      ["main_image", "image"].forEach(function (field) {
+      ["main_image", "image", "home_image"].forEach(function (field) {
         if (convertedBlobs[field]) {
           formdata.append(field, convertedBlobs[field], `${field}.webp`);
+        } else {
+          // Try to append original file from input if user didn't change it (important!)
+          const inputFile = document.getElementById(field);
+          if (inputFile && inputFile.files.length > 0) {
+            formdata.append(field, inputFile.files[0]);
+          }
         }
       });
 
@@ -431,9 +436,15 @@ $(function () {
       //      formdata.append(field, files[0]);
       //    }
       //  });
-      ["main_image", "image"].forEach(function (field) {
+      ["main_image", "image", "home_image"].forEach(function (field) {
         if (convertedBlobs[field]) {
           formdata.append(field, convertedBlobs[field], `${field}.webp`);
+        } else {
+          // Try to append original file from input if user didn't change it (important!)
+          const inputFile = document.getElementById(field);
+          if (inputFile && inputFile.files.length > 0) {
+            formdata.append(field, inputFile.files[0]);
+          }
         }
       });
       $("#save").attr("disabled", true);
@@ -463,3 +474,24 @@ $(function () {
     },
   });
 });
+
+function displayfeature(id, status) {
+  // alert(id);
+  // alert(status);
+  $.ajax({
+    url: "actions/saveWebinar.php",
+    type: "post",
+    data: { id: id, status: status, action: "changeStatus" },
+    success: function (data) {
+      if (data == "true") {
+        toastr.success("Status Changed Successfully...!");
+        loadData();
+      } else if (data == "limit") {
+        toastr.error("You Have reached The Limit Of 3");
+        loadData();
+      } else {
+        toastr.error(data);
+      }
+    },
+  });
+}

@@ -113,6 +113,11 @@ function loadData() {
             <a href="#" title="Delete" onclick="RemoveAccount(${oData.id})">
               <i class="fas fa-trash"></i>
             </a>`;
+          if (oData.status == "1") {
+            actionBtns += `<input type="checkbox" onclick="displayfeature(${oData.id},0)" name="displayItems" style="width:15px; height: 15px;" checked>`;
+          } else {
+            actionBtns += `<input type="checkbox" onclick="displayfeature(${oData.id},1)" name="displayItems" style="width:15px; height: 15px;">`;
+          }
           $(nTd).html(actionBtns);
         },
       },
@@ -306,3 +311,24 @@ $(function () {
     setupValidation("addformpage", "save");
   if ($("form[name='editform']").length) setupValidation("editform", "update");
 });
+
+function displayfeature(id, status) {
+  // alert(id);
+  // alert(status);
+  $.ajax({
+    url: "actions/saveStories.php",
+    type: "post",
+    data: { id: id, status: status, action: "changeStatus" },
+    success: function (data) {
+      if (data == "true") {
+        toastr.success("Status Changed Successfully...!");
+        loadData();
+      } else if (data == "limit") {
+        toastr.error("You Have reached The Limit Of 3");
+        loadData();
+      } else {
+        toastr.error(data);
+      }
+    },
+  });
+}

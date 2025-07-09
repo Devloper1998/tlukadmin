@@ -1,24 +1,18 @@
 <?php 
 session_start();
-
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
-
 include_once("../crudop/crud.php");
 $crud = new Crud();
 $tableName = 'tluk_logo';
 $oldheader_logo    = isset($_POST['oldheader_logo'])?trim($_POST['oldheader_logo']):'';
 $oldfooter_logo    = isset($_POST['oldfooter_logo'])?trim($_POST['oldfooter_logo']):'';
-
 $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
 $randomId      = uniqid(substr(0, 10));
-
 $header_logo = '';
 $header_logo_targetDir = "../uploads/logos/";
-
 if(isset($_FILES['header_logo'])) {
-
     $header_logofileName = basename($_FILES["header_logo"]["name"]);
     $targetheader_logoFilePath = $header_logo_targetDir.$randomId. "header_logo".$header_logofileName;
     if(move_uploaded_file($_FILES["header_logo"]["tmp_name"], $targetheader_logoFilePath)) {
@@ -30,12 +24,9 @@ if(isset($_FILES['header_logo'])) {
 } else {
     $header_logo = $oldheader_logo;
 }
-
 $footer_logo = '';
 $footer_logo_targetDir = "../uploads/logos/";
-
 if(isset($_FILES['footer_logo'])) {
-
     $footer_logofileName = basename($_FILES["footer_logo"]["name"]);
     $targetfooter_logoFilePath = $footer_logo_targetDir.$randomId. "footer_logo".$footer_logofileName;
     if(move_uploaded_file($_FILES["footer_logo"]["tmp_name"], $targetfooter_logoFilePath)) {
@@ -47,14 +38,9 @@ if(isset($_FILES['footer_logo'])) {
 } else {
     $footer_logo = $oldfooter_logo;
 }
-
 if(isset($_POST["action"]) && $_POST['action'] == 'save'){
-
 	 $inslogo = "INSERT INTO ".$tableName." SET header_logo ='".$header_logo."',footer_logo ='".$footer_logo."',randomId = '".$randomId."'";
 	  $insData =$crud->execute($inslogo);
-
-     
-  
         if($insData)
         {
           echo "true";
@@ -62,11 +48,8 @@ if(isset($_POST["action"]) && $_POST['action'] == 'save'){
           echo "false";
         }
 }
-
 if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
-
     $sql_show = "SELECT * FROM tluk_logo order by id desc";
- 
     $show_data = $crud->getData($sql_show);        
        $response = array(
         "draw" => 1,
@@ -75,9 +58,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
     );
     echo json_encode($response);
 }
-
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
-
      $updatelogo = "UPDATE ".$tableName." SET header_logo ='".$header_logo."',footer_logo ='".$footer_logo."' where randomId = '".$hdn_id."'";
     $updateData =$crud->execute($updatelogo);
         if($updateData)
@@ -87,12 +68,9 @@ if(isset($_POST["action"]) && $_POST['action'] == 'update'){
           echo "false";
         }
 }
-
 if(isset($_POST["action"]) && $_POST['action'] == 'delete'){
-
     $dellogo = "DELETE FROM ".$tableName." where id = '".$_POST['id']."'";
     $deldata = $crud->execute($dellogo);
-    
     if ($deldata ){
       echo "true";
     }else{

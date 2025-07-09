@@ -1,5 +1,6 @@
 let convertedBlobs = {
   main_image: null,
+  home_image: null,
   image: null,
 };
 function loadData() {
@@ -15,8 +16,8 @@ function loadData() {
     reader.onload = function (e) {
       const img = new Image();
       img.onload = function () {
-        let requiredWidth = 0;
-        let requiredHeight = 0;
+        let requiredWidth = img.width;
+        let requiredHeight = img.height;
 
         if (fieldId === "main_image") {
           requiredWidth = 800;
@@ -25,13 +26,6 @@ function loadData() {
           requiredWidth = 1600;
           requiredHeight = 1200;
         }
-
-        // if (img.width < requiredWidth || img.height < requiredHeight) {
-        //   alert(`${fieldId.replace('_', ' ')} must be at least ${requiredWidth}×${requiredHeight} pixels.`);
-        //   $(input).val('');
-        //   $(previewSelector).hide();
-        //   return;
-        // }
 
         // Resize using canvas
         const canvas = document.createElement("canvas");
@@ -52,58 +46,11 @@ function loadData() {
           0.8
         );
       };
+
       img.src = e.target.result;
     };
     reader.readAsDataURL(file);
   });
-
-  // $('.image-upload').on('change', function(event) {
-  //   var input = event.target;
-  //   var previewSelector = $(this).data('preview');
-  //   var file = input.files[0];
-
-  //   if (file) {
-  //     var img = new Image();
-  //     var objectUrl = URL.createObjectURL(file);
-
-  //     img.onload = function() {
-  //       var width = this.width;
-  //       var height = this.height;
-
-  //        // Mainimages Resize
-
-  //       if (input.id === 'main_image') {
-  //         if (width < 800  || height < 600 ) {
-  //           alert("Main Image must be at least 800×600 pixels.");
-  //           $(input).val('');
-  //           $(previewSelector).hide();
-  //           URL.revokeObjectURL(objectUrl);
-  //           return;
-  //         }
-  //       }
-
-  //       // subimages Resize
-  //        if (input.id === 'image') {
-  //         if (width < 1600 || height < 1200) {
-  //           alert("Event Image1 must be at least 1600×1200 pixels.");
-  //           $(input).val('');
-  //           $(previewSelector).hide();
-  //           URL.revokeObjectURL(objectUrl);
-  //           return;
-  //         }
-  //       }
-
-  //       var reader = new FileReader();
-  //       reader.onload = function(e) {
-  //         $(previewSelector).attr('src', e.target.result).show();
-  //       }
-  //       reader.readAsDataURL(file);
-  //       URL.revokeObjectURL(objectUrl);
-  //     };
-
-  //     img.src = objectUrl;
-  //   }
-  // });
 
   $("#Form_Table").dataTable().fnDestroy();
   var table = $("#Form_Table").DataTable({
@@ -154,6 +101,11 @@ function loadData() {
                 
 
                 <a href="#" title="Delete" onclick="RemoveAccount(${oData.id})"><i class="fas fa-trash"></i></a>&nbsp;&nbsp; `;
+          if (oData.status == "1") {
+            bnTd += `<input type="checkbox" onclick="displayfeature(${oData.id},0)" name="displayItems" style="width:15px; height: 15px;" checked>`;
+          } else {
+            bnTd += `<input type="checkbox" onclick="displayfeature(${oData.id},1)" name="displayItems" style="width:15px; height: 15px;">`;
+          }
           $(nTd).html(bnTd);
         },
       },
@@ -304,6 +256,7 @@ $(function () {
       start_time: "required",
       // end_time          : "required",
       main_image: "required",
+      home_image: "required",
       description1: "required",
       // image          : "required",
       description2: "required",
@@ -316,6 +269,7 @@ $(function () {
       start_time: "Please Enter Start Time",
       // end_time: "Please Enter End Time",
       main_image: "Please Upload the Main image",
+      home_image: "Please Upload the Details image",
       description1: "Please Enter Description",
       // image          : "Please Upload the image",
       description2: "Please Enter Description",
@@ -334,17 +288,15 @@ $(function () {
       formdata.append("description1", description1);
       formdata.append("description2", description2);
       formdata.append("action", "save");
-
-      // let imageFields = ['main_image', 'image'];
-      //  imageFields.forEach(function(field){
-      //    let files = $('#' + field)[0].files;
-      //    if(files.length > 0){
-      //      formdata.append(field, files[0]);
-      //    }
-      //  });
-      ["main_image", "image"].forEach(function (field) {
+      ["main_image", "image", "home_image"].forEach(function (field) {
         if (convertedBlobs[field]) {
           formdata.append(field, convertedBlobs[field], `${field}.webp`);
+        } else {
+          // Try to append original file from input if user didn't change it (important!)
+          const inputFile = document.getElementById(field);
+          if (inputFile && inputFile.files.length > 0) {
+            formdata.append(field, inputFile.files[0]);
+          }
         }
       });
 
@@ -424,9 +376,15 @@ $(function () {
       //      formdata.append(field, files[0]);
       //    }
       //  });
-      ["main_image", "image"].forEach(function (field) {
+      ["main_image", "image", "home_image"].forEach(function (field) {
         if (convertedBlobs[field]) {
           formdata.append(field, convertedBlobs[field], `${field}.webp`);
+        } else {
+          // Try to append original file from input if user didn't change it (important!)
+          const inputFile = document.getElementById(field);
+          if (inputFile && inputFile.files.length > 0) {
+            formdata.append(field, inputFile.files[0]);
+          }
         }
       });
 
@@ -457,3 +415,24 @@ $(function () {
     },
   });
 });
+
+function displayfeature(id, status) {
+  // alert(id);
+  // alert(status);
+  $.ajax({
+    url: "actions/saveEvents.php",
+    type: "post",
+    data: { id: id, status: status, action: "changeStatus" },
+    success: function (data) {
+      if (data == "true") {
+        toastr.success("Status Changed Successfully...!");
+        loadData();
+      } else if (data == "limit") {
+        toastr.error("You Have reached The Limit Of 3");
+        loadData();
+      } else {
+        toastr.error(data);
+      }
+    },
+  });
+}

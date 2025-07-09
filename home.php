@@ -15,11 +15,10 @@ $selCategories = $crud->getData("SELECT count(*) as contactcnt FROM `tluk_contac
 $contactcntCat =$selCategories[0]['contactcnt'];
 $selCategories = $crud->getData("SELECT count(*) as subscribercnt FROM `tluk_subscribers` where status = 1");
 $subscribercntCat =$selCategories[0]['subscribercnt'];
-
-
 ?>
+
 <body>
-    <!-- navbar --> 
+    <!-- navbar -->
     <?php include('includes/navbar.php');?>
     <!--./navbar -->
     <!-- sidebar -->
@@ -34,156 +33,150 @@ $subscribercntCat =$selCategories[0]['subscribercnt'];
             <div class="container-fluid">
                 <!-- start page title -->
                 <div class="row">
-                  <div class="col-12">
-                    <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0 font-size-18">Dashboard</h4>
-                        <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item">TLUK</li>
-                        <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
+                    <div class="col-12">
+                        <div class="page-title-box d-flex align-items-center justify-content-between">
+                            <h4 class="mb-0 font-size-18">Dashboard</h4>
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item">TLUK</li>
+                                    <li class="breadcrumb-item active">Dashboard</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
-                  </div>
                 </div>
                 <!-- end page title -->
-                     <!-- Main Content Display -->
-            <div class="row">
-                
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-user-plus fa-3x text-primary"></i>
-                                <div class="ml-3">
-                                    <h5 class="card-title">Registered Users</h5>
-                                    <p class="card-text">No.of Registers: <?php echo $CountReg; ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-user-plus fa-3x text-primary"></i>
-                                <div class="ml-3">
-                                    <h5 class="card-title">Contacted Users</h5>
-                                    <p class="card-text">No.of Contacts: <?php echo $contactcntCat; ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-user-plus fa-3x text-primary"></i>
-                                <div class="ml-3">
-                                    <h5 class="card-title">Subscribered Users</h5>
-                                    <p class="card-text">No.of Subscribers: <?php echo $subscribercntCat; ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <a href="manageStories.php">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-book fa-3x text-primary"></i>
-                                <div class="ml-3">
-                                    <h5 class="card-title">Stories</h5>
-                                    <p class="card-text">No.of Stories: <?php echo $CountStory; ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </a>
-                </div>
+                <!-- Main Content Display -->
+                <div class="row">
 
-                <div class="col-md-4">
-                    <a href="manageEvents.php">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-calendar fa-3x text-primary" aria-hidden="true"></i>
-                                <div class="ml-3">
-                                    <h5 class="card-title">Events</h5>
-                                    <p class="card-text">No.of Events: <?php echo $CountEvents; ?></p>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user-plus fa-3x text-primary"></i>
+                                    <div class="ml-3">
+                                        <h5 class="card-title">Registered Users</h5>
+                                        <p class="card-text">No.of Registers: <?php echo $CountReg; ?></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="manageWebinars.php">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-podcast text-primary fa-3x" aria-hidden="true"></i>
-                                <div class="ml-3">
-                                    <h5 class="card-title">Webinars</h5>
-                                    <p class="card-text">No.of Webinars: <?php echo $CountWeb ?></p>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user-plus fa-3x text-primary"></i>
+                                    <div class="ml-3">
+                                        <h5 class="card-title">Contacted Users</h5>
+                                        <p class="card-text">No.of Contacts: <?php echo $contactcntCat; ?></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="manageFeatureBusiness.php">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-building fa-3x text-primary"></i>
-                                <div class="ml-3">
-                                    <h5 class="card-title">Featured Business</h5>
-                                    <p class="card-text">No.of Business: <?php echo $CntBus; ?></p>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user-plus fa-3x text-primary"></i>
+                                    <div class="ml-3">
+                                        <h5 class="card-title">Subscribered Users</h5>
+                                        <p class="card-text">No.of Subscribers: <?php echo $subscribercntCat; ?></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </a>
-                </div>
-                 <div class="col-md-4">
-                    <a href="manageFeatureBusiness.php">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-list-alt fa-3x text-primary"></i>
-                                <div class="ml-3">
-                                    <h5 class="card-title">Categories</h5>
-                                    <p class="card-text">No.of Categories: <?php echo $CntCat; ?></p>
+                    <div class="col-md-4">
+                        <a href="manageStories.php">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-book fa-3x text-primary"></i>
+                                        <div class="ml-3">
+                                            <h5 class="card-title">Stories</h5>
+                                            <p class="card-text">No.of Stories: <?php echo $CountStory; ?></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                    </a>
+                    <div class="col-md-4">
+                        <a href="manageEvents.php">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-calendar fa-3x text-primary" aria-hidden="true"></i>
+                                        <div class="ml-3">
+                                            <h5 class="card-title">Events</h5>
+                                            <p class="card-text">No.of Events: <?php echo $CountEvents; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="manageWebinars.php">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-podcast text-primary fa-3x" aria-hidden="true"></i>
+                                        <div class="ml-3">
+                                            <h5 class="card-title">Webinars</h5>
+                                            <p class="card-text">No.of Webinars: <?php echo $CountWeb ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="manageFeatureBusiness.php">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-building fa-3x text-primary"></i>
+                                        <div class="ml-3">
+                                            <h5 class="card-title">Featured Business</h5>
+                                            <p class="card-text">No.of Business: <?php echo $CntBus; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="manageFeatureBusiness.php">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-list-alt fa-3x text-primary"></i>
+                                        <div class="ml-3">
+                                            <h5 class="card-title">Categories</h5>
+                                            <p class="card-text">No.of Categories: <?php echo $CntCat; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                
-   
-            </div>
-            <!-- ./Main Content Display -->
+                <!-- ./Main Content Display -->
 
             </div>
             <!-- ./container-fluid -->
         </div>
         <!-- ./page-content -->
-    <!-- footer -->
-    <?php include('includes/footer.php');?>
-    <!-- ./footer -->
+        <!-- footer -->
+        <?php include('includes/footer.php');?>
+        <!-- ./footer -->
     </div>
     <!-- ./main-content -->
-    
-
     <!-- Overlay-->
     <div class="menu-overlay"></div>
-
 </body>
 
 </html>

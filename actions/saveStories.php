@@ -271,6 +271,18 @@ if(isset($_POST["action"]) && $_POST['action'] == 'DisplayDesc'){
 //         echo "false";
 //     }
 // }
+if (isset($_POST['action']) && $_POST['action'] == 'changeStatus'){   
+      
+    $Upd_Status = "UPDATE ".$tableName." SET status = '".$_POST['status']."' WHERE id='".$_POST['id']."'";
+ 
+         $Status_data = $crud->execute($Upd_Status);
+ 
+         if ($Status_data){
+             echo "true";
+         }else{
+             echo "false";
+         }
+ }
 
 
 ?>

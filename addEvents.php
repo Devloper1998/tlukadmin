@@ -92,6 +92,20 @@
                                                             height="auto">
                                                 </div>
                                             </div>
+
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Event Details Image <span class="star">*</span></label>
+                                                    <input type="file" name="home_image" id="home_image"
+                                                        class="form-control image-upload" data-preview="#previewImage2"
+                                                        accept="image\* ">
+                                                    <p><br>
+                                                        <img id="previewImage2" src="#" alt="New Image Preview"
+                                                            style="display:none;border-radius: 10px;" width="150"
+                                                            height="auto">
+                                                </div>
+                                            </div>
+
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Event Description1 <span class="star">*</span></label>
