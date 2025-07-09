@@ -119,7 +119,7 @@
                                                         class="form-control"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Story Image1</label>
                                                     <input type="file" name="story_image1" id="story_image1"
@@ -132,15 +132,15 @@
                                                             width="150" height="auto">
 
                                                 </div>
-                                            </div>
-                                            <div class="col-12">
+                                            </div> -->
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Story Description2 <span class="star">*</span></label>
                                                     <textarea id="description2" name="description2"
                                                         class="form-control"></textarea>
                                                 </div>
-                                            </div>
-                                            <div class="col-12">
+                                            </div> -->
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Story Image2</label>
                                                     <input type="file" name="story_image2" id="story_image2"
@@ -153,7 +153,7 @@
                                                             width="150" height="auto">
 
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <!--  <div class="col-12">
                         <div class="form-group">
                           <label>Description3</label>

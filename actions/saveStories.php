@@ -17,46 +17,101 @@ $description1    = isset($_POST['description1'])?trim($_POST['description1']):''
 $description2    = isset($_POST['description2'])?trim($_POST['description2']):'';
 $oldmain_image    = isset($_POST['oldmain_image'])?trim($_POST['oldmain_image']):'';
 $oldprofile_image    = isset($_POST['oldprofile_image'])?trim($_POST['oldprofile_image']):'';
-$oldstory_image1    = isset($_POST['oldstory_image1'])?trim($_POST['oldstory_image1']):'';
-$oldstory_image2    = isset($_POST['oldstory_image2'])?trim($_POST['oldstory_image2']):'';
+// $oldstory_image1    = isset($_POST['oldstory_image1'])?trim($_POST['oldstory_image1']):'';
+// $oldstory_image2    = isset($_POST['oldstory_image2'])?trim($_POST['oldstory_image2']):'';
 $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
 $randomId      = uniqid(substr(0, 10));
-$imageFields = ['main_image', 'profile_image', 'story_image1', 'story_image2'];
+// $imageFields = ['main_image', 'profile_image', 'story_image1', 'story_image2'];
+// $uploadsDir = "../uploads/stories/";
+// foreach ($imageFields as $field) {
+//     $oldField = 'old' . $field;
+//     $$field = isset($_POST[$oldField]) ? trim($_POST[$oldField]) : '';
+//     if (isset($_FILES[$field]) && $_FILES[$field]['name'] != "") {
+//         $tempPath = $_FILES[$field]["tmp_name"];
+//         $targetFileName = $randomId . "_" . $field . ".webp";
+//         $targetFilePath = $uploadsDir . $targetFileName;
+//         $img = new Imagick($tempPath);
+//         $img->setImageFormat('webp');
+//         $img->setImageResolution(100, 100);
+//         $img->setImageUnits(Imagick::RESOLUTION_PIXELSPERINCH);
+//         switch ($field) {
+//             case 'main_image':
+//                 $img->resizeImage(800, 600, Imagick::FILTER_LANCZOS, 1, true);
+//                 break;
+//             case 'profile_image':
+//                 $img->resizeImage(400, 400, Imagick::FILTER_LANCZOS, 1, true);
+//                 break;
+//             case 'story_image1':
+//             case 'story_image2':
+//                 $img->resizeImage(1600, 1200, Imagick::FILTER_LANCZOS, 1, true);
+//                 break;
+//         }
+//         $img->writeImage($targetFilePath);
+//         $img->clear();
+//         $img->destroy();
+//         $$field = $targetFilePath;
+//         if ($_POST['action'] == 'update' && file_exists($_POST[$oldField])) {
+//             unlink($_POST[$oldField]);
+//         }
+//     }
+// }
+
+$imageFields = ['main_image', 'profile_image'];
 $uploadsDir = "../uploads/stories/";
+
+// Image Resize & Convert to WebP using GD
+function processImageWithGD($srcPath, $destPath, $width, $height) {
+    $info = getimagesize($srcPath);
+    $mime = $info['mime'];
+
+    switch ($mime) {
+        case 'image/jpeg':
+            $srcImage = imagecreatefromjpeg($srcPath);
+            break;
+        case 'image/png':
+            $srcImage = imagecreatefrompng($srcPath);
+            break;
+        case 'image/webp':
+            $srcImage = imagecreatefromwebp($srcPath);
+            break;
+        default:
+            return false;
+    }
+
+    $resizedImage = imagescale($srcImage, $width, $height);
+    imagewebp($resizedImage, $destPath, 80);
+    imagedestroy($srcImage);
+    imagedestroy($resizedImage);
+    return true;
+}
+
 foreach ($imageFields as $field) {
     $oldField = 'old' . $field;
     $$field = isset($_POST[$oldField]) ? trim($_POST[$oldField]) : '';
+
     if (isset($_FILES[$field]) && $_FILES[$field]['name'] != "") {
         $tempPath = $_FILES[$field]["tmp_name"];
         $targetFileName = $randomId . "_" . $field . ".webp";
         $targetFilePath = $uploadsDir . $targetFileName;
-        $img = new Imagick($tempPath);
-        $img->setImageFormat('webp');
-        $img->setImageResolution(100, 100);
-        $img->setImageUnits(Imagick::RESOLUTION_PIXELSPERINCH);
+
         switch ($field) {
             case 'main_image':
-                $img->resizeImage(800, 600, Imagick::FILTER_LANCZOS, 1, true);
+                processImageWithGD($tempPath, $targetFilePath, 800, 600);
                 break;
             case 'profile_image':
-                $img->resizeImage(400, 400, Imagick::FILTER_LANCZOS, 1, true);
-                break;
-            case 'story_image1':
-            case 'story_image2':
-                $img->resizeImage(1600, 1200, Imagick::FILTER_LANCZOS, 1, true);
+                processImageWithGD($tempPath, $targetFilePath, 400, 400);
                 break;
         }
-        $img->writeImage($targetFilePath);
-        $img->clear();
-        $img->destroy();
+
         $$field = $targetFilePath;
+
         if ($_POST['action'] == 'update' && file_exists($_POST[$oldField])) {
             unlink($_POST[$oldField]);
         }
     }
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'save'){
-	  $insQry = "INSERT INTO ".$tableName." SET title = '".$title."', name ='".$name."',designation ='".$designation."',main_image ='".$main_image."',profile_image ='".$profile_image."',description1 ='".$description1."',story_image1 ='".$story_image1."',description2 ='".$description2."',story_image2 ='".$story_image2."',randomId = '".$randomId."'";
+	  $insQry = "INSERT INTO ".$tableName." SET title = '".$title."', name ='".$name."',designation ='".$designation."',main_image ='".$main_image."',profile_image ='".$profile_image."',description1 ='".$description1."',randomId = '".$randomId."'";
 	  $insData =$crud->insertLastId($insQry);
         if($insData)
         {
@@ -97,7 +152,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
     echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
-    $upQry = "UPDATE ".$tableName." SET title = '".$title."', name ='".$name."',designation ='".$designation."',main_image ='".$main_image."',profile_image ='".$profile_image."',description1 ='".$description1."',story_image1 ='".$story_image1."',description2 ='".$description2."',story_image2 ='".$story_image2."' WHERE randomId = '".$hdn_id."'";
+    $upQry = "UPDATE ".$tableName." SET title = '".$title."', name ='".$name."',designation ='".$designation."',main_image ='".$main_image."',profile_image ='".$profile_image."',description1 ='".$description1."'  WHERE randomId = '".$hdn_id."'";
     $updateData = $crud->execute($upQry);
     if($updateData)
     {

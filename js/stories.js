@@ -1,8 +1,8 @@
 const convertedBlobs = {
   main_image: null,
   profile_image: null,
-  story_image1: null,
-  story_image2: null,
+  // story_image1: null,
+  // story_image2: null,
 };
 function loadData() {
   $(".image-upload").on("change", function (event) {
@@ -29,11 +29,11 @@ function loadData() {
             requiredWidth = 400;
             requiredHeight = 400;
             break;
-          case "story_image1":
-          case "story_image2":
-            requiredWidth = 1600;
-            requiredHeight = 1200;
-            break;
+          // case "story_image1":
+          // case "story_image2":
+          //   requiredWidth = 1600;
+          //   requiredHeight = 1200;
+          //   break;
         }
 
         // Optional: validation
@@ -262,13 +262,11 @@ function setupValidation(formName, submitAction) {
       //     formdata.set(field, fileInput.files[0]);
       //   }
       // });
-      ["main_image", "profile_image", "story_image1", "story_image2"].forEach(
-        function (field) {
-          if (convertedBlobs[field]) {
-            formdata.append(field, convertedBlobs[field], `${field}.webp`);
-          }
+      ["main_image", "profile_image"].forEach(function (field) {
+        if (convertedBlobs[field]) {
+          formdata.append(field, convertedBlobs[field], `${field}.webp`);
         }
-      );
+      });
 
       formdata.append("action", submitAction);
 
