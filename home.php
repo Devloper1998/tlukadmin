@@ -51,42 +51,48 @@ $subscribercntCat =$selCategories[0]['subscribercnt'];
 
                     <div class="col-md-4">
                         <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-user-plus fa-3x text-primary"></i>
-                                    <div class="ml-3">
-                                        <h5 class="card-title">Registered Users</h5>
-                                        <p class="card-text">No.of Registers: <?php echo $CountReg; ?></p>
+                            <a href="#">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user-plus fa-3x text-primary"></i>
+                                        <div class="ml-3">
+                                            <h5 class="card-title">Registered Users</h5>
+                                            <p class="card-text">No.of Registers: <?php echo $CountReg; ?></p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-user-plus fa-3x text-primary"></i>
-                                    <div class="ml-3">
-                                        <h5 class="card-title">Contacted Users</h5>
-                                        <p class="card-text">No.of Contacts: <?php echo $contactcntCat; ?></p>
+                        <a href="manageContactUsers.php">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user-plus fa-3x text-primary"></i>
+                                        <div class="ml-3">
+                                            <h5 class="card-title">Contacted Users</h5>
+                                            <p class="card-text">No.of Contacts: <?php echo $contactcntCat; ?></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-user-plus fa-3x text-primary"></i>
-                                    <div class="ml-3">
-                                        <h5 class="card-title">Subscribered Users</h5>
-                                        <p class="card-text">No.of Subscribers: <?php echo $subscribercntCat; ?></p>
+                        <a href="manageSubscribers.php">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user-plus fa-3x text-primary"></i>
+                                        <div class="ml-3">
+                                            <h5 class="card-title">Subscribered Users</h5>
+                                            <p class="card-text">No.of Subscribers: <?php echo $subscribercntCat; ?></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-md-4">
                         <a href="manageStories.php">
