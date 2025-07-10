@@ -1,4 +1,5 @@
 let convertedWebPBlob = null;
+let convertedWeb1PBlob = null;
 $(function () {
   $("#image")
     .off("change")
@@ -26,6 +27,41 @@ $(function () {
               // 👁️ Show preview
               const previewURL = URL.createObjectURL(blob);
               $("#previewImage").attr("src", previewURL).show();
+            },
+            "image/webp",
+            0.8
+          ); // Quality
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  $("#image1")
+    .off("change")
+    .on("change", function (event) {
+      const input = event.target;
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          // 🔁 Resize image using canvas
+          const canvas = document.createElement("canvas");
+          canvas.width = 960;
+          canvas.height = 572;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, 960, 572);
+
+          // 🔁 Convert to WebP
+          canvas.toBlob(
+            function (blob) {
+              convertedWeb1PBlob = blob;
+
+              // 👁️ Show preview
+              const previewURL = URL.createObjectURL(blob);
+              $("#previewImage1").attr("src", previewURL).show();
             },
             "image/webp",
             0.8
@@ -167,6 +203,13 @@ $(function () {
 
       if (convertedWebPBlob) {
         formdata.append("image", convertedWebPBlob, "converted.webp");
+      }
+
+      if (convertedWeb1PBlob) {
+        formdata.append("image1", convertedWeb1PBlob, "converted1.webp");
+      } else {
+        // explicitly send empty if no new image1
+        formdata.append("image1", "");
       }
       $("#save").attr("disabled", true);
       $("#pageloader").show();

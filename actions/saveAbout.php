@@ -9,6 +9,7 @@ $tableName = 'tluk_about';
 $description = isset($_POST['description']) ? trim($_POST['description']) : '';
 $description1 = isset($_POST['description1']) ? trim($_POST['description1']) : '';
 $oldImage     = isset($_POST['oldImage'])?trim($_POST['oldImage']):'';
+$oldImage1     = isset($_POST['oldImage1'])?trim($_POST['oldImage1']):'';
 $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
 $randomId      = uniqid(substr(0, 10));
 $image = '';
@@ -33,8 +34,30 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
 } else {
     $image = $oldImage;
 }
+$image1 = '';
+$image1_targetDir = "../uploads/about/";
+
+if (isset($_FILES['image1']) && $_FILES['image1']['error'] === 0) {
+    $image1fileName = basename($_FILES["image1"]["name"]);
+    $tempPath = $_FILES["image1"]["tmp_name"];
+    $newFileName = $randomId . "_image1.webp";
+    $targetImage1FilePath = $image1_targetDir . $newFileName;
+
+    $source = imagecreatefromstring(file_get_contents($tempPath));
+    imagepalettetotruecolor($source);
+    imagewebp($source, $targetImage1FilePath, 80); // Quality 80
+    imagedestroy($source);
+
+    $image1 = $targetImage1FilePath;
+
+    if ($_POST['action'] == 'update' && !empty($oldImage1) && file_exists($oldImage1)) {
+        unlink($oldImage1);
+    }
+}
+
+
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
-    $UpdateQry = "UPDATE ".$tableName." SET description = '".$description."',description1 = '".$description1."',image = '".$image."' where  randomId = '".$hdn_id."'";
+    $UpdateQry = "UPDATE ".$tableName." SET description = '".$description."',description1 = '".$description1."',image = '".$image."',image1 = '".$image1."' where  randomId = '".$hdn_id."'";
     $updatedata = $crud->execute($UpdateQry);
         if($updatedata)
         {

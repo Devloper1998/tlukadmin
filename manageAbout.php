@@ -5,12 +5,12 @@
  $aboutqry = "select * from tluk_about";
  $aboutdata = $crud->getData($aboutqry);
  $image = str_replace('../', '', $aboutdata[0]['image']);
+ $image1 = str_replace('../', '', $aboutdata[0]['image1']);
 
 ?>
 
 <body>
     <div id="layout-wrapper">
-
         <?php include('includes/navbar.php'); ?>
 
         <?php include('includes/sidebar.php'); ?>
@@ -78,6 +78,24 @@
                                                             style="border-radius: 10px;margin-top: 10px;">
 
                                                         <input type="hidden" name="oldImage" id="oldImage"
+                                                            class="form-control"
+                                                            value="<?php echo $aboutdata[0]['image'] ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>About Image1 <span class="star">*</span></label>
+                                                    <input type="file" name="image1" id="image1" class="form-control"
+                                                        value="<?php echo $aboutdata[0]['image1'] ?>" accept="image\*">
+                                                    <p><br>
+                                                        <img id="previewImage1" src="#" alt="New Image Preview"
+                                                            style="border-radius: 10px;display:none;" width="150"
+                                                            height="auto">
+
+                                                        <img src="<?php echo $image1; ?>" width="150" height="auto"
+                                                            style="border-radius: 10px;margin-top: 10px;">
+
+                                                        <input type="hidden" name="oldImage1" id="oldImage1"
                                                             class="form-control"
                                                             value="<?php echo $aboutdata[0]['image'] ?>">
                                                 </div>
