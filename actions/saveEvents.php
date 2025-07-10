@@ -20,7 +20,7 @@ $oldhome_image    = isset($_POST['oldhome_image'])?trim($_POST['oldhome_image'])
 $oldimage    = isset($_POST['oldimage'])?trim($_POST['oldimage']):'';
 $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
 $randomId      = uniqid(substr(0, 10));
-$imageFields = ['main_image','image',"home_image"]; 
+$imageFields = ['main_image',"home_image"]; 
 $uploadsDir = "../uploads/events/";
 foreach ($imageFields as $field) {
   $oldField = 'old' . $field;
@@ -38,10 +38,7 @@ foreach ($imageFields as $field) {
       if ($field === 'main_image') {
           $newWidth = 800;
           $newHeight = 600;
-      } elseif ($field === 'image') {
-          $newWidth = 1600;
-          $newHeight = 1200;
-      }
+      } 
       $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
       imagecopyresampled($resizedImage, $sourceImage, 0, 0, 0, 0, $newWidth, $newHeight, $origWidth, $origHeight);
       imagewebp($resizedImage, $targetFilePath, 80);
@@ -54,7 +51,7 @@ foreach ($imageFields as $field) {
   }
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'save'){
-	 $insEventQry = "INSERT INTO ".$tableName." SET event_name = '".$event_name."', date ='".$date."',end_date ='".$end_date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',home_image ='".$home_image."',image ='".$image."',event_location ='".$event_location."',randomId = '".$randomId."'";
+	 $insEventQry = "INSERT INTO ".$tableName." SET event_name = '".$event_name."', date ='".$date."',end_date ='".$end_date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',home_image ='".$home_image."',event_location ='".$event_location."',randomId = '".$randomId."'";
 	$insData =$crud->execute($insEventQry);
         if($insData)
         {
@@ -94,7 +91,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
     echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
-     $upEventQry = "UPDATE ".$tableName." SET event_name = '".$event_name."',date ='".$date."',end_date ='".$end_date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',home_image ='".$home_image."',image ='".$image."',event_location ='".$event_location."' where randomId = '".$hdn_id."'";
+     $upEventQry = "UPDATE ".$tableName." SET event_name = '".$event_name."',date ='".$date."',end_date ='".$end_date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',home_image ='".$home_image."',event_location ='".$event_location."' where randomId = '".$hdn_id."'";
     $updateData =$crud->execute($upEventQry);
         if($updateData)
         {

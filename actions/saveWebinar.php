@@ -19,7 +19,7 @@ $oldhome_image    = isset($_POST['oldhome_image'])?trim($_POST['oldhome_image'])
 $oldimage    = isset($_POST['oldimage'])?trim($_POST['oldimage']):'';
 $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
 $randomId      = uniqid(substr(0, 10));
-$imageFields = ['main_image','image',"home_image"]; 
+$imageFields = ['main_image',"home_image"]; 
 $uploadsDir = "../uploads/webinars/";
 foreach ($imageFields as $field) {
   $oldField = 'old' . $field;
@@ -37,10 +37,7 @@ foreach ($imageFields as $field) {
       if ($field === 'main_image') {
           $newWidth = 800;
           $newHeight = 600;
-      } elseif ($field === 'image') {
-          $newWidth = 1600;
-          $newHeight = 1200;
-      }
+      } 
       $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
       imagecopyresampled($resizedImage, $sourceImage, 0, 0, 0, 0, $newWidth, $newHeight, $origWidth, $origHeight);
       imagewebp($resizedImage, $targetFilePath, 80);
@@ -53,7 +50,7 @@ foreach ($imageFields as $field) {
   }
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'save'){
-	 $insQry = "INSERT INTO ".$tableName." SET webinar_name = '".$webinar_name."', date ='".$date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',home_image ='".$home_image."',image ='".$image."',webinar_location ='".$webinar_location."',randomId = '".$randomId."'";
+	 $insQry = "INSERT INTO ".$tableName." SET webinar_name = '".$webinar_name."', date ='".$date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',home_image ='".$home_image."',webinar_location ='".$webinar_location."',randomId = '".$randomId."'";
 	  $insData =$crud->execute($insQry);
         if($insData)
         {
@@ -93,7 +90,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
     echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
-     $upQry = "UPDATE ".$tableName." SET webinar_name = '".$webinar_name."',date ='".$date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',home_image ='".$home_image."',image ='".$image."',webinar_location ='".$webinar_location."' where randomId = '".$hdn_id."'";
+     $upQry = "UPDATE ".$tableName." SET webinar_name = '".$webinar_name."',date ='".$date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',home_image ='".$home_image."',webinar_location ='".$webinar_location."' where randomId = '".$hdn_id."'";
     $updateData =$crud->execute($upQry);
         if($updateData)
         {

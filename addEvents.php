@@ -113,7 +113,7 @@
                                                         class="form-control"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Event Image1</label>
                                                     <input type="file" name="image" id="image"
@@ -125,7 +125,7 @@
                                                             style="display:none;border-radius: 10px;" width="150"
                                                             height="auto">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Event Description2 <span class="star">*</span></label>

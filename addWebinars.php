@@ -112,7 +112,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Webinar Image1</label>
                                                     <input type="file" name="image" id="image"
@@ -125,7 +125,7 @@
                                                             width="150" height="auto">
 
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Webinar Description2 <span class="star">*</span></label>

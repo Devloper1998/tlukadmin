@@ -124,14 +124,14 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Webinar Image1</label><br>
-                                                    <img src="<?php echo $image;?>" width="100"
+                                                    <img src="<?php// echo $image;?>" width="100"
                                                         style="border-radius: 10px;">
 
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Webinar Description2</label>
@@ -234,26 +234,26 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Webinar Image1</label>
                                                     <input type="hidden" name="oldimage" id="oldimage"
                                                         class="form-control"
-                                                        value="<?php echo $webinardata[0]['image'];?>">
+                                                        value="<?php //echo //$webinardata[0]['image'];?>">
 
                                                     <input type="file" name="image" id="image"
                                                         class="form-control image-upload" data-preview="#previewImage1"
                                                         accept="image\*">
                                                     <p><span style="color:red;">Note:</span> &nbsp;Please upload an
                                                         image with dimensions <strong>1600px × 1200px</strong><br>
-                                                        <img src="<?php echo $image;?>" width="100"
+                                                        <img src="<?php //echo $image;?>" width="100"
                                                             style="border-radius: 10px; margin-top: 10px;">
                                                         <img id="previewImage1"
                                                             style="display:none;border-radius: 10px; margin-top: 10px;"
                                                             width="150" height="auto">
 
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Webinar Description2 <span class="star">*</span></label>

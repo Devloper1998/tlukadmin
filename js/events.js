@@ -288,7 +288,7 @@ $(function () {
       formdata.append("description1", description1);
       formdata.append("description2", description2);
       formdata.append("action", "save");
-      ["main_image", "image", "home_image"].forEach(function (field) {
+      ["main_image", "home_image"].forEach(function (field) {
         if (convertedBlobs[field]) {
           formdata.append(field, convertedBlobs[field], `${field}.webp`);
         } else {
@@ -376,7 +376,7 @@ $(function () {
       //      formdata.append(field, files[0]);
       //    }
       //  });
-      ["main_image", "image", "home_image"].forEach(function (field) {
+      ["main_image", "home_image"].forEach(function (field) {
         if (convertedBlobs[field]) {
           formdata.append(field, convertedBlobs[field], `${field}.webp`);
         } else {
