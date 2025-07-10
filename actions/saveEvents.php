@@ -84,7 +84,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'DisplayShow'){
   echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
-    $sql_show = "SELECT * FROM tluk_events where event_name ='".$_POST['title']."' order by id desc";
+    $sql_show = "SELECT * FROM tluk_events where id ='".$_POST['event_id']."' order by id desc";
     $show_data = $crud->getData($sql_show);        
        $response = array(
         "draw" => 1,
