@@ -7,6 +7,7 @@ include_once("../crudop/crud.php");
 $crud = new Crud();
 $tableName = 'tluk_about';
 $description = isset($_POST['description']) ? trim($_POST['description']) : '';
+$description1 = isset($_POST['description1']) ? trim($_POST['description1']) : '';
 $oldImage     = isset($_POST['oldImage'])?trim($_POST['oldImage']):'';
 $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
 $randomId      = uniqid(substr(0, 10));
@@ -33,7 +34,7 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
     $image = $oldImage;
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
-    $UpdateQry = "UPDATE ".$tableName." SET description = '".$description."',image = '".$image."' where  randomId = '".$hdn_id."'";
+    $UpdateQry = "UPDATE ".$tableName." SET description = '".$description."',description1 = '".$description1."',image = '".$image."' where  randomId = '".$hdn_id."'";
     $updatedata = $crud->execute($UpdateQry);
         if($updatedata)
         {
