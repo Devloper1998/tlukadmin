@@ -252,7 +252,7 @@ $(function () {
       });
       formdata.append("action", "save");
 
-      ["main_image", "image", "business_logo"].forEach(function (field) {
+      ["main_image", "home_image", "business_logo"].forEach(function (field) {
         if (convertedBlobs[field]) {
           formdata.append(field, convertedBlobs[field], `${field}.webp`);
         } else {
@@ -310,7 +310,7 @@ $(function () {
       });
       formdata.append("action", "update");
 
-      ["main_image", "image", "business_logo"].forEach(function (field) {
+      ["main_image", "home_image", "business_logo"].forEach(function (field) {
         if (convertedBlobs[field]) {
           formdata.append(field, convertedBlobs[field], `${field}.webp`);
         } else {
