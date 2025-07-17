@@ -12,7 +12,7 @@ $useremail = $_POST['email'];
 $randomId  = $_POST['randomId'];
 $today =date('d-m-Y');
 
-$Adminemail = 'kamadibhavani16@gmail.com';
+$Adminemail = 'teluguladiesinuk@gmail.com';
 $subject    = "New Subscriber Alert From TLUK";
 
 $filePath = 'https://teluguladiesinuk.com/admin/subadminEmail.html';

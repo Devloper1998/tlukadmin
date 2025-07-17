@@ -12,7 +12,7 @@ $username     = $_POST['username'];
 $useremail     = $_POST['useremail'];
 $phone     = $_POST['phone'];
 $message     = $_POST['message'];
-$Adminemail    = 'kamadibhavani16@gmail.com';
+$Adminemail    = 'teluguladiesinuk@gmail.com';
 
 
 $ins_qry = "insert into tluk_UsersVerification set email = '".trim($useremail)."', randomId = '".trim($randomId)."' ";
