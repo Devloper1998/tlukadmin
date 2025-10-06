@@ -71,7 +71,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
     echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'DisplayShow'){
-  $sql_show = "SELECT * FROM tluk_events where status = 1 order by id desc";
+  $sql_show = "SELECT * FROM tluk_events WHERE status = 1 ORDER BY (sorting_order = 0 OR sorting_order IS NULL) ASC, sorting_order ASC";
   $show_data = $crud->getData($sql_show);        
      $response = array(
       "draw" => 1,
@@ -136,6 +136,18 @@ if (isset($_POST['action']) && $_POST['action'] == 'changeStatus'){
        }else{
            echo "false";
        }
+}
+
+if(isset($_POST["action"]) && $_POST['action'] == 'updateSortingOrder'){
+
+    $upOrder = "UPDATE ".$tableName." SET sorting_order = '".$_POST['sorting_order']."' where id = '".$_POST['id']."'";
+    $updateOrderData =$crud->execute($upOrder);
+        if($updateOrderData)
+        {
+          echo "true";
+        } else{
+          echo "false";
+        }
 }
 
 ?>

@@ -145,7 +145,8 @@ function RemoveAccount(id) {
       success: function (data) {
         if (data == "true") {
           toastr.success("deleted successfully...!");
-          loadData();
+          // loadData();
+          table.ajax.reload(null, false);
         }
       },
     });
