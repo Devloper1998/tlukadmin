@@ -71,7 +71,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'show'){
     echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
-    $sql_show = "SELECT * FROM tluk_featurebussines ORDER BY featuredstatus DESC, id DESC;";
+    $sql_show = "SELECT * FROM tluk_featurebussines ORDER BY (sorting_order = 0 OR  sorting_order IS NULL) ASC, sorting_order ASC, featuredstatus DESC, id DESC;";
     $show_data = $crud->getData($sql_show);        
        $response = array(
         "draw" => 1,
@@ -179,7 +179,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'changeStatusFeature'){
         }
 }
 
- if(isset($_POST["action"]) && $_POST['action'] == 'updateSortingOrder'){
+
+if(isset($_POST["action"]) && $_POST['action'] == 'updateSortingOrder'){
 
     $upOrder = "UPDATE ".$tableName." SET sorting_order = '".$_POST['sorting_order']."' where id = '".$_POST['id']."'";
     $updateOrderData =$crud->execute($upOrder);
@@ -190,4 +191,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'changeStatusFeature'){
           echo "false";
         }
 }
+
+
 ?>

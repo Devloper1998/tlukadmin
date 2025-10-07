@@ -145,6 +145,28 @@ var table = $("#Form_Table").DataTable({
 });
 
 $(document).ready(function () {
+  $(document).on("change blur", ".sorting-order-input", function () {
+    const id = $(this).data("id");
+    const value = $(this).val().trim();
+    if (value === "") return;
+
+    $.ajax({
+      url: "actions/saveFeatureBusiness.php",
+      type: "POST",
+      data: { id: id, sorting_order: value, action: "updateSortingOrder" },
+      success: function (data) {
+        if (data.trim() === "true") {
+          toastr.success("Sorting order updated successfully!");
+        } else {
+          toastr.error("Failed to update sorting order!");
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("AJAX Error:", error);
+        toastr.error("An error occurred while saving.");
+      },
+    });
+  });
   loadData();
 });
 
@@ -384,23 +406,3 @@ function displayfeature(id, status) {
     },
   });
 }
-
-$(document).on("change blur", ".sorting-order-input", function () {
-  var id = $(this).data("id");
-  var value = $(this).val();
-  if (value !== "") {
-    $.ajax({
-      url: "actions/saveFeatureBusiness.php",
-      type: "POST",
-      data: { id: id, sorting_order: value, action: "updateSortingOrder" },
-      success: function (data) {
-        console.log(data);
-        if (data === "true") {
-          toastr.success("Sorting order saved!");
-        } else {
-          toastr.error("Failed to save sorting order");
-        }
-      },
-    });
-  }
-});

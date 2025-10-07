@@ -5,7 +5,10 @@ session_start();
     }
     include("crudop/crud.php");
     $crud = new Crud();
+    
+
 ?>
+
 <head>
     <meta charset="utf-8" />
     <title>TLUK</title>
@@ -23,7 +26,8 @@ session_start();
     <link href="assets/css/theme.min.css" rel="stylesheet" type="text/css" />
 
     <!-- toastr -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <!-- Plugins css -->
     <link href="plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
@@ -35,7 +39,7 @@ session_start();
 
 </head>
 <style type="text/css">
-    .error{
-        color: red;
-    }
+.error {
+    color: red;
+}
 </style>

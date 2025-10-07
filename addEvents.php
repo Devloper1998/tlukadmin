@@ -70,6 +70,8 @@
                                                     <label>Start Time <span class="star">*</span></label>
                                                     <input type="time" name="start_time" id="start_time"
                                                         class="form-control">
+
+                                                    <!-- <p>Converted GMT Time: <span id="gmt_time"></span></p> -->
                                                 </div>
                                             </div>
                                             <div class="col-3">
@@ -169,5 +171,39 @@
 </body>
 
 <script type="text/javascript" src="js/events.js"></script>
+<!-- <script>
+const input = document.getElementById('start_time');
+const gmtDisplay = document.getElementById('gmt_time');
+
+input.addEventListener('change', () => {
+    const timeValue = input.value; // e.g. "14:30"
+    if (!timeValue) {
+        gmtDisplay.textContent = "";
+        return;
+    }
+
+    // Split input time into hours and minutes
+    const [hours, minutes] = timeValue.split(':').map(Number);
+
+    // Create a Date object for today with input local time
+    const now = new Date();
+    const localDate = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        hours,
+        minutes,
+        0,
+        0
+    );
+
+    // Get UTC time parts
+    const utcHours = localDate.getUTCHours().toString().padStart(2, '0');
+    const utcMinutes = localDate.getUTCMinutes().toString().padStart(2, '0');
+
+    // Show GMT (UTC) time in HH:mm format
+    gmtDisplay.textContent = `${utcHours}:${utcMinutes} (GMT)`;
+});
+</script> -->
 
 </html>
