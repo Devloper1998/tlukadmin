@@ -199,5 +199,17 @@ if (isset($_POST['action']) && $_POST['action'] == 'changeStatus'){
          }
  }
 
+ if(isset($_POST["action"]) && $_POST['action'] == 'updateSortingOrder'){
+
+    $upOrder = "UPDATE ".$tableName." SET sorting_order = '".$_POST['sorting_order']."' where id = '".$_POST['id']."'";
+    $updateOrderData =$crud->execute($upOrder);
+        if($updateOrderData)
+        {
+          echo "true";
+        } else{
+          echo "false";
+        }
+}
+
 
 ?>

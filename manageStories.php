@@ -54,6 +54,7 @@
                                                 <th>Name</th>
                                                 <th>Description</th>
                                                 <th>Profile image</th>
+                                                <th>Sorting Order</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>

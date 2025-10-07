@@ -2,6 +2,10 @@
 <html lang="en">
 
 <?php include('includes/header.php');
+
+
+$selEvent = "select * from tluk_events";
+$getEvents  = $crud->getData($selEvent);
 ?>
 
 
@@ -21,13 +25,13 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">Add Category</h4>
+                                <h4 class="mb-0 font-size-18">Add Winners</h4>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item">
                                             <a href="home.php">Dashboard</a>
                                         </li>
-                                        <li class="breadcrumb-item active">Add Category</li>
+                                        <li class="breadcrumb-item active">Add Winners</li>
                                     </ol>
                                 </div>
                             </div>
@@ -45,17 +49,34 @@
                                     <form name="addformpage" id="addformpage" method="post"
                                         enctype="multipart/form-data" class="needs-validation" novalidate>
                                         <div class="row">
+
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label>Category Name <span class="star">*</span></label>
-                                                    <input type="text" name="category_name" id="category_name"
-                                                        class="form-control" onblur="getValue(this.value);">
+                                                    <label>Sponsor Name <span class="star">*</span></label>
+                                                    <input type="text" name="sponsor_name" id="sponsor_name"
+                                                        class="form-control">
                                                 </div>
                                             </div>
 
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Sponsor Logo </label>
+                                                    <input type="file" name="sponsor_logo" id="sponsor_logo"
+                                                        class="form-control image-upload" data-preview="#previewImage"
+                                                        accept="image\* ">
+                                                    <p><span style="color:red;">Note:</span> &nbsp;Please upload an
+                                                        image with dimensions <strong>800px × 600px</strong><br>
+                                                        <img id="previewImage" src="#" alt="New Image Preview"
+                                                            style="display:none;border-radius: 10px;" width="150"
+                                                            height="auto">
+                                                </div>
+                                            </div>
+
+
+
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-danger"
-                                                    onclick="location.href = 'manageCategories.php'">Cancel</button>
+                                                    onclick="location.href = 'manageSponsors.php'">Cancel</button>
                                             </div>
                                             <div class="col-6">
 
@@ -80,6 +101,6 @@
 
 </body>
 
-<script type="text/javascript" src="js/category.js"></script>
+<script type="text/javascript" src="js/sponsor.js"></script>
 
 </html>

@@ -2,6 +2,10 @@
 <html lang="en">
 
 <?php include('includes/header.php');
+$selEvent = "select * from tluk_events";
+$getEvents  = $crud->getData($selEvent);
+$selSponsor = "select * from tluk_sponsors";
+$getSponsor = $crud->getData($selSponsor);
 ?>
 
 
@@ -21,13 +25,13 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">Add Category</h4>
+                                <h4 class="mb-0 font-size-18">Add Winners</h4>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item">
                                             <a href="home.php">Dashboard</a>
                                         </li>
-                                        <li class="breadcrumb-item active">Add Category</li>
+                                        <li class="breadcrumb-item active">Add Winners</li>
                                     </ol>
                                 </div>
                             </div>
@@ -47,15 +51,44 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label>Category Name <span class="star">*</span></label>
-                                                    <input type="text" name="category_name" id="category_name"
-                                                        class="form-control" onblur="getValue(this.value);">
+                                                    <label>Winner Name <span class="star">*</span></label>
+                                                    <input type="text" name="winner_name" id="winner_name"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Event Name <span class="star">*</span></label>
+                                                    <select name="event_name" id="event_name" class="form-control">
+                                                        <option value="">--select option--</option>
+                                                        <?php foreach ($getEvents as $key => $value) { ?>
+                                                        <option value="<?php echo $value['id'] ?>">
+                                                            <?php echo $value['event_name']?></option>
+                                                        <?php } ?>
+                                                    </select>
                                                 </div>
                                             </div>
 
+
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Sponsor Name <span class="star">*</span></label>
+                                                    <select name="sponsor_name" id="sponsor_name" class="form-control">
+                                                        <option value="">--select option--</option>
+                                                        <?php foreach ($getSponsor as $key => $value) { ?>
+                                                        <option value="<?php echo $value['id'] ?>">
+                                                            <?php echo $value['sponsor_name']?></option>
+                                                        <?php
+                                                    }?>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-danger"
-                                                    onclick="location.href = 'manageCategories.php'">Cancel</button>
+                                                    onclick="location.href = 'manageWinners.php'">Cancel</button>
                                             </div>
                                             <div class="col-6">
 
@@ -80,6 +113,6 @@
 
 </body>
 
-<script type="text/javascript" src="js/category.js"></script>
+<script type="text/javascript" src="js/winner.js"></script>
 
 </html>

@@ -102,6 +102,19 @@ var table = $("#Form_Table").DataTable({
         }
       },
     },
+    {
+      data: "sorting_order",
+      render: function (data, type, row) {
+        let val = data && data !== "0" ? data : "";
+        return (
+          '<input type="text" class="form-control sorting-order-input w-100" data-id="' +
+          row.id +
+          '" value="' +
+          val +
+          '" style="width:60px">'
+        );
+      },
+    },
 
     {
       data: "id",
@@ -371,3 +384,23 @@ function displayfeature(id, status) {
     },
   });
 }
+
+$(document).on("change blur", ".sorting-order-input", function () {
+  var id = $(this).data("id");
+  var value = $(this).val();
+  if (value !== "") {
+    $.ajax({
+      url: "actions/saveFeatureBusiness.php",
+      type: "POST",
+      data: { id: id, sorting_order: value, action: "updateSortingOrder" },
+      success: function (data) {
+        console.log(data);
+        if (data === "true") {
+          toastr.success("Sorting order saved!");
+        } else {
+          toastr.error("Failed to save sorting order");
+        }
+      },
+    });
+  }
+});
