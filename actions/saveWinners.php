@@ -32,16 +32,36 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
     );
     echo json_encode($response);
 }
-if(isset($_POST["action"]) && $_POST['action'] == 'DisplayShow'){
-  $sql_show = "SELECT * FROM tluk_winners order by id desc";
-  $show_data = $crud->getData($sql_show);        
-     $response = array(
-      "draw" => 1,
-      "recordsTotal" => count($show_data),
-      "data" => $show_data
-  );
-  echo json_encode($response);
+if (isset($_POST["action"]) && $_POST['action'] == 'DisplayShow') { 
+    $sql_show = "SELECT 
+                    tw.id, 
+                    tw.winner_name, 
+                    tw.status, 
+                    tw.randomId, 
+                    tw.sponsor_logo, 
+                    te.event_name AS event_name, 
+                    ts.sponsor_name AS sponsor_name
+                 FROM tluk_winners AS tw
+                 LEFT JOIN tluk_events AS te ON tw.event_name = te.id
+                 LEFT JOIN tluk_sponsors AS ts ON tw.sponsor_name = ts.id
+                 ORDER BY tw.id DESC";
+
+    $show_data = $crud->getData($sql_show);
+    foreach ($show_data as &$row) {
+        $row['event_name'] = $row['event_name'] ?? '';
+        $row['sponsor_name'] = $row['sponsor_name'] ?? '';
+    }
+    $response = [
+        "draw" => 1,
+        "recordsTotal" => count($show_data),
+        "data" => $show_data  
+    ];
+    echo json_encode($response);
 }
+
+
+
+
 if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
     $sql_show = "SELECT * FROM tluk_winners where id ='".$_POST['event_id']."' order by id desc";
     $show_data = $crud->getData($sql_show);        
