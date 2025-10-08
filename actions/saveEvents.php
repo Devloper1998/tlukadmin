@@ -90,6 +90,29 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
     );
     echo json_encode($response);
 }
+if(isset($_POST["action"]) && $_POST['action'] == 'DisplayWinners'){
+  
+$sql_winner = "SELECT tw.id,
+                      tw.winner_name,
+                      tw.status,
+                      tw.randomId,
+                      ts.sponsor_logo,
+                      te.event_name,
+                      ts.sponsor_name 
+               FROM tluk_winners as tw
+               LEFT JOIN tluk_events as te ON tw.event_name = te.id
+               LEFT JOIN tluk_sponsors as ts ON tw.sponsor_name = ts.id
+               WHERE tw.event_name = '".$_POST['event_id']."' 
+               ORDER BY tw.id DESC";
+  $show_winner = $crud->getData($sql_winner);        
+     $response = array(
+      "draw" => 1,
+      "recordsTotal" => count($show_winner),
+      "data" => $show_winner
+  );
+  echo json_encode($response);
+  
+}
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
      $upEventQry = "UPDATE ".$tableName." SET event_name = '".$event_name."',date ='".$date."',end_date ='".$end_date."',start_time ='".$start_time."',end_time ='".$end_time."',description1 ='".$description1."',description2 ='".$description2."',main_image ='".$main_image."',home_image ='".$home_image."',event_location ='".$event_location."' where randomId = '".$hdn_id."'";
     $updateData =$crud->execute($upEventQry);
