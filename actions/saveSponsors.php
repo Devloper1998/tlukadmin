@@ -44,6 +44,16 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
     );
     echo json_encode($response);
 }
+if(isset($_POST["action"]) && $_POST['action'] == 'DisplayShow'){
+    $sql_show = "SELECT * FROM tluk_sponsors order by id desc";
+    $show_data = $crud->getData($sql_show);        
+       $response = array(
+        "draw" => 1,
+        "recordsTotal" => count($show_data),
+        "data" => $show_data
+    );
+    echo json_encode($response);
+}
 
 
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){

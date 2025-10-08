@@ -33,7 +33,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
     echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'DisplayShow'){
-  $sql_show = "SELECT * FROM tluk_winners WHERE status = 1 ORDER BY (sorting_order = 0 OR sorting_order IS NULL) ASC, sorting_order ASC";
+  $sql_show = "SELECT * FROM tluk_winners order by id desc";
   $show_data = $crud->getData($sql_show);        
      $response = array(
       "draw" => 1,
