@@ -98,7 +98,8 @@ $sql_winner = "SELECT tw.id,
                       tw.randomId,
                       ts.sponsor_logo,
                       te.event_name,
-                      ts.sponsor_name 
+                      ts.sponsor_name,
+                      tw.gift
                FROM tluk_winners as tw
                LEFT JOIN tluk_events as te ON tw.event_name = te.id
                LEFT JOIN tluk_sponsors as ts ON tw.sponsor_name = ts.id

@@ -41,7 +41,8 @@ if (isset($_POST["action"]) && $_POST['action'] == 'DisplayShow') {
                     tw.randomId, 
                     tw.sponsor_logo, 
                     te.event_name AS event_name, 
-                    ts.sponsor_name AS sponsor_name
+                    ts.sponsor_name AS sponsor_name,
+                    tw.gift
                  FROM tluk_winners AS tw
                  LEFT JOIN tluk_events AS te ON tw.event_name = te.id
                  LEFT JOIN tluk_sponsors AS ts ON tw.sponsor_name = ts.id
