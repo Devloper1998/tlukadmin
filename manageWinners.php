@@ -52,6 +52,7 @@
                                                 <th>S.No</th>
                                                 <th>Winner Name</th>
                                                 <th>Event Name</th>
+                                                <th>Gift</th>
                                                 <th>Sponsors Name</th>
                                                 <th>Actions</th>
                                             </tr>

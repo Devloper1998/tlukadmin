@@ -53,6 +53,7 @@
                                                 <th>S.No</th>
                                                 <th>Sponsor Name</th>
                                                 <th>Sponsors Logo</th>
+                                                <th>Sponsors Link</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>

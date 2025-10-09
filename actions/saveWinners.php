@@ -8,12 +8,13 @@ $crud = new Crud();
 $tableName = 'tluk_winners';
 $event_name    = isset($_POST['event_name'])?trim($_POST['event_name']):'';
 $winner_name    = isset($_POST['winner_name'])?trim($_POST['winner_name']):'';
+$gift    = isset($_POST['gift'])?trim($_POST['gift']):'';
 $sponsor_name    = isset($_POST['sponsor_name'])?trim($_POST['sponsor_name']):'';
 $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
 $randomId      = uniqid(substr(0, 10));
 
 if(isset($_POST["action"]) && $_POST['action'] == 'save'){
-	 $insEventQry = "INSERT INTO ".$tableName." SET event_name = '".$event_name."', winner_name = '".$winner_name."',sponsor_name = '".$sponsor_name."',randomId = '".$randomId."'";
+	  $insEventQry = "INSERT INTO ".$tableName." SET event_name = '".$event_name."', winner_name = '".$winner_name."', gift = '".$gift."',sponsor_name = '".$sponsor_name."',randomId = '".$randomId."'";
 	$insData =$crud->execute($insEventQry);
         if($insData)
         {
@@ -73,7 +74,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
     echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
-     $upEventQry = "UPDATE ".$tableName." SET event_name = '".$event_name."', winner_name = '".$winner_name."',sponsor_name = '".$sponsor_name."' where randomId = '".$hdn_id."'";
+     $upEventQry = "UPDATE ".$tableName." SET event_name = '".$event_name."', winner_name = '".$winner_name."', gift = '".$gift."',sponsor_name = '".$sponsor_name."' where randomId = '".$hdn_id."'";
     $updateData =$crud->execute($upEventQry);
         if($updateData)
         {

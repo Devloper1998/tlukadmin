@@ -68,7 +68,12 @@ $getSponsor = $crud->getData($selSponsor);
                                                     </select>
                                                 </div>
                                             </div>
-
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Gift <span class="star">*</span></label>
+                                                    <input type="text" name="gift" id="gift" class="form-control">
+                                                </div>
+                                            </div>
 
                                             <div class="col-12">
                                                 <div class="form-group">

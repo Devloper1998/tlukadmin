@@ -79,6 +79,7 @@ function loadData() {
           }
         },
       },
+      { data: "sponsor_link" },
 
       {
         data: "id",
@@ -133,10 +134,12 @@ $(function () {
   $("form[name='addformpage']").validate({
     rules: {
       sponsor_name: "required",
+      // sponsor_link: "required",
     },
 
     messages: {
       sponsor_name: "Please Enter Sponsor name",
+      // sponsor_link: "Please Enter Sponsor Link",
     },
 
     submitHandler: function (form) {

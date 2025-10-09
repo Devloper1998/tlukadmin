@@ -7,6 +7,7 @@ include_once("../crudop/crud.php");
 $crud = new Crud();
 $tableName = 'tluk_sponsors';
 $sponsor_name    = isset($_POST['sponsor_name'])?trim($_POST['sponsor_name']):'';
+$sponsor_link    = isset($_POST['sponsor_link'])?trim($_POST['sponsor_link']):'';
 
 $oldsponsor_logo    = isset($_POST['oldsponsor_logo'])?trim($_POST['oldsponsor_logo']):'';
 $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
@@ -23,9 +24,11 @@ $sponsor_logofileName = basename($_FILES["sponsor_logo"]["name"]);
     if(move_uploaded_file($_FILES["sponsor_logo"]["tmp_name"], $targetsponsor_logoFilePath)){                                                              
     $sponsor_logo = $targetsponsor_logoFilePath;
   }
+}else{
+    $sponsor_logo = $oldsponsor_logo;
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'save'){
-	 $insEventQry = "INSERT INTO ".$tableName." SET sponsor_name = '".$sponsor_name."',sponsor_logo = '".$sponsor_logo."',randomId = '".$randomId."'";
+	 $insEventQry = "INSERT INTO ".$tableName." SET sponsor_name = '".$sponsor_name."',sponsor_logo = '".$sponsor_logo."', sponsor_link = '".$sponsor_link."',randomId = '".$randomId."'";
 	$insData =$crud->execute($insEventQry);
         if($insData)
         {
@@ -58,7 +61,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'DisplayShow'){
 
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
   
-     $upEventQry = "UPDATE ".$tableName." SET sponsor_name = '".$sponsor_name."',sponsor_logo = '".$sponsor_logo."' where randomId = '".$hdn_id."'";
+     $upEventQry = "UPDATE ".$tableName." SET sponsor_name = '".$sponsor_name."',sponsor_logo = '".$sponsor_logo."',sponsor_link = '".$sponsor_link."' where randomId = '".$hdn_id."'";
     $updateData =$crud->execute($upEventQry);
         if($updateData)
         {

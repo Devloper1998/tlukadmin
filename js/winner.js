@@ -22,6 +22,7 @@ function loadData() {
         },
       },
       { data: "ename" },
+      { data: "gift" },
       { data: "sname" },
 
       {
@@ -74,12 +75,14 @@ $(function () {
     rules: {
       winner_name: "required",
       event_name: "required",
+      gift: "required",
       sponsor_name: "required",
     },
 
     messages: {
       winner_name: "Please Enter Winner Name",
       event_name: "Please Enter Event Name",
+      gift: "Please Enter Gift Name",
       sponsor_name: "Please Enter Sponsor name",
     },
 

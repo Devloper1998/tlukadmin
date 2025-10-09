@@ -81,7 +81,15 @@
                                                     <img src="<?php echo $sponsor_logo;?>" width="100"
                                                         style="border-radius: 10px;">
                                                 </div>
+                                                <div class="form-group">
+                                                    <label>Sponsor Link</label>
+                                                    <input type="text" name="sponsor_link" id="sponsor_link"
+                                                        class="form-control"
+                                                        value="<?php echo $getSponsors[0]['sponsor_link'];?>" readonly>
+
+                                                </div>
                                             </div>
+
 
 
 
@@ -116,6 +124,13 @@
                                                             width="150" height="auto">
                                                         <img src="<?php echo $sponsor_logo;?>" width="100"
                                                             style="border-radius: 10px;margin-top: 10px;">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Sponsor Link</label>
+                                                    <input type="text" name="sponsor_link" id="sponsor_link"
+                                                        class="form-control"
+                                                        value="<?php echo $getSponsors[0]['sponsor_link'];?>">
 
                                                 </div>
                                             </div>

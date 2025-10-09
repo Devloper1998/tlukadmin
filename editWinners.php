@@ -77,8 +77,16 @@
 
                                                 </div>
                                             </div>
-
                                             <div class="col-6">
+                                                <div class="form-group">
+                                                    <label>Gift</label>
+                                                    <input type="text" name="gift" id="gift" class="form-control"
+                                                        value="<?php echo $winnerData[0]['gift'];?>" readonly>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Event Name</label>
                                                     <input type="text" name="event_name" id="event_name"
@@ -87,6 +95,7 @@
 
                                                 </div>
                                             </div>
+
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Sponsor Name</label>
@@ -123,6 +132,14 @@
                                                             <?php echo $value['event_name']?></option>
                                                         <?php } ?>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Gift</label>
+                                                    <input type="text" name="gift" id="gift" class="form-control"
+                                                        value="<?php echo $winnerData[0]['gift'];?>">
+
                                                 </div>
                                             </div>
                                             <div class="col-12">

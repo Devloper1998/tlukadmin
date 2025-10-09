@@ -25,13 +25,13 @@ $getEvents  = $crud->getData($selEvent);
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">Add Winners</h4>
+                                <h4 class="mb-0 font-size-18">Add Sponsors</h4>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item">
                                             <a href="home.php">Dashboard</a>
                                         </li>
-                                        <li class="breadcrumb-item active">Add Winners</li>
+                                        <li class="breadcrumb-item active">Add Sponsors</li>
                                     </ol>
                                 </div>
                             </div>
@@ -71,9 +71,13 @@ $getEvents  = $crud->getData($selEvent);
                                                             height="auto">
                                                 </div>
                                             </div>
-
-
-
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Sponsor Link </label>
+                                                    <input type="url" name="sponsor_link" id="sponsor_link"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-danger"
                                                     onclick="location.href = 'manageSponsors.php'">Cancel</button>
