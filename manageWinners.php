@@ -54,6 +54,7 @@
                                                 <th>Event Name</th>
                                                 <th>Gift</th>
                                                 <th>Sponsors Name</th>
+                                                <th>Sorting Order</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>

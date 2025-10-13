@@ -54,6 +54,7 @@
                                                 <th>Sponsor Name</th>
                                                 <th>Sponsors Logo</th>
                                                 <th>Sponsors Link</th>
+                                                <th>Sorting Order</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>

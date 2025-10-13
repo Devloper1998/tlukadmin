@@ -42,11 +42,15 @@ if (isset($_POST["action"]) && $_POST['action'] == 'DisplayShow') {
                     tw.sponsor_logo, 
                     te.event_name AS event_name, 
                     ts.sponsor_name AS sponsor_name,
-                    tw.gift
+                    tw.gift,
+                    tw.sorting_order
                  FROM tluk_winners AS tw
                  LEFT JOIN tluk_events AS te ON tw.event_name = te.id
                  LEFT JOIN tluk_sponsors AS ts ON tw.sponsor_name = ts.id
-                 ORDER BY tw.id DESC";
+                 ORDER BY 
+                    (tw.sorting_order = 0 OR tw.sorting_order IS NULL) ASC,
+                    tw.sorting_order ASC,
+                    tw.id DESC";
 
     $show_data = $crud->getData($sql_show);
     foreach ($show_data as &$row) {
@@ -123,5 +127,15 @@ if (isset($_POST['action']) && $_POST['action'] == 'changeStatus'){
 }
 
 
+if(isset($_POST["action"]) && $_POST['action'] == 'updateSortingOrder'){
 
+    $upOrder = "UPDATE ".$tableName." SET sorting_order = '".$_POST['sorting_order']."' where id = '".$_POST['id']."'";
+    $updateOrderData =$crud->execute($upOrder);
+        if($updateOrderData)
+        {
+          echo "true";
+        } else{
+          echo "false";
+        }
+}
 ?>
