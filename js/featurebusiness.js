@@ -125,11 +125,25 @@ var table = $("#Form_Table").DataTable({
                 
 
                 <a href="#" title="Delete" onclick="RemoveAccount(${oData.id})"><i class="fas fa-trash"></i></a>&nbsp;&nbsp; `;
-        if (oData.featuredstatus == "1") {
-          bnTd += `<input type="checkbox" onclick="displayfeature(${oData.id},0)" name="displayItems" style="width:15px; height: 15px;" checked>`;
+        if (oData.status == "1") {
+          bnTd += `<input type="checkbox" onclick="displayStatus(${oData.id},0)" name="displayItems" style="width:15px; height: 15px;" checked>`;
         } else {
-          bnTd += `<input type="checkbox" onclick="displayfeature(${oData.id},1)" name="displayItems" style="width:15px; height: 15px;">`;
+          bnTd += `<input type="checkbox" onclick="displayStatus(${oData.id},1)" name="displayItems" style="width:15px; height: 15px;">`;
         }
+        if (oData.featuredstatus == "1") {
+          bnTd += `
+    <label class="switch">
+      <input type="checkbox" onclick="displayfeature(${oData.id}, 0)" checked>
+      <span class="slider round"></span>
+    </label>`;
+        } else {
+          bnTd += `
+    <label class="switch">
+      <input type="checkbox" onclick="displayfeature(${oData.id}, 1)">
+      <span class="slider round"></span>
+    </label>`;
+        }
+
         $(nTd).html(bnTd);
       },
     },
@@ -386,6 +400,27 @@ $(function () {
   });
 });
 
+function displayStatus(id, status) {
+  // alert(id);
+  // alert(status);
+  $.ajax({
+    url: "actions/saveFeatureBusiness.php",
+    type: "post",
+    data: { id: id, status: status, action: "changeStatus" },
+    success: function (data) {
+      if (data == "true") {
+        toastr.success("Status Changed Successfully...!");
+        loadData();
+      } else if (data == "limit") {
+        toastr.error("You Have reached The Limit Of 3");
+        loadData();
+      } else {
+        toastr.error(data);
+      }
+    },
+  });
+}
+
 function displayfeature(id, status) {
   // alert(id);
   // alert(status);
@@ -395,7 +430,7 @@ function displayfeature(id, status) {
     data: { id: id, status: status, action: "changeStatusFeature" },
     success: function (data) {
       if (data == "true") {
-        toastr.success("Status Changed Successfully...!");
+        toastr.success("Changed the Featured Business!");
         loadData();
       } else if (data == "limit") {
         toastr.error("You Have reached The Limit Of 3");
