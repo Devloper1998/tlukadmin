@@ -71,7 +71,9 @@ if(isset($_POST["action"]) && $_POST['action'] == 'show'){
     echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
-    $sql_show = "SELECT * FROM tluk_featurebussines WHERE status = 1 ORDER BY (sorting_order = 0 OR  sorting_order IS NULL) ASC, sorting_order ASC, featuredstatus DESC, id DESC;";
+    $sql_show = "SELECT * FROM tluk_featurebussines WHERE status = 1 ORDER BY 
+  CASE WHEN sorting_order IS NULL OR sorting_order = 0 THEN 1 ELSE 0 END,
+  CAST(sorting_order AS UNSIGNED) ASC, featuredstatus DESC, id DESC;";
     $show_data = $crud->getData($sql_show);        
        $response = array(
         "draw" => 1,

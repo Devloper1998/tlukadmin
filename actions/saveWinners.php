@@ -47,9 +47,7 @@ if (isset($_POST["action"]) && $_POST['action'] == 'DisplayShow') {
                  FROM tluk_winners AS tw
                  LEFT JOIN tluk_events AS te ON tw.event_name = te.id
                  LEFT JOIN tluk_sponsors AS ts ON tw.sponsor_name = ts.id
-                 ORDER BY 
-                    (tw.sorting_order = 0 OR tw.sorting_order IS NULL) ASC,
-                    tw.sorting_order ASC,
+                 ORDER BY CASE WHEN tw.sorting_order IS NULL OR tw.sorting_order = 0 THEN 1 ELSE 0 END, CAST(tw.sorting_order AS UNSIGNED) ASC,
                     tw.id DESC";
 
     $show_data = $crud->getData($sql_show);
