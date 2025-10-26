@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
 
-                                    <table id="Form_Table" class="table dt-responsive nowrap">
+                                    <table id="Form_Table" class="table text-wrap">
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
