@@ -153,17 +153,19 @@ $(function () {
 
       formdata.append("action", "update");
       formdata.append("rowcounts", rowCount);
-      let imageInputs1 = document.querySelectorAll(
+      let imageInputs = document.querySelectorAll(
         'input[name="winner_image[]"]'
       );
-      imageInputs1.forEach((input, index) => {
+      imageInputs.forEach((input, index) => {
         if (input.files.length > 0) {
-          formdata.append("winner_image[]", input.files[0]);
+          formdata.append(`winner_image[${index}]`, input.files[0]);
+        } else {
+          formdata.append(`winner_image[${index}]`, "");
         }
       });
 
-      // $("#save").attr("disabled", true);
-      // $("#pageloader").show();
+      $("#save").attr("disabled", true);
+      $("#pageloader").show();
 
       $.ajax({
         type: "POST",
@@ -175,8 +177,8 @@ $(function () {
         data: formdata,
         success: function (data) {
           if (data.trim() == "true") {
-            // $("#pageloader").hide();
-            // $("#save").attr("disabled", false);
+            $("#pageloader").hide();
+            $("#save").attr("disabled", false);
             toastr.success("Updated Successfully...!");
             setTimeout(function () {
               location.href = "manageWinners.php";
