@@ -210,3 +210,17 @@ $(document).on("change blur", ".sorting-order-input", function () {
     });
   }
 });
+function remove(id) {
+  alert(id);
+  $.ajax({
+    url: "actions/saveWinners.php",
+    type: "post",
+    data: { id: id, action: "deleteList" },
+    success: function (data) {
+      if (data == "true") {
+        toastr.success("deleted successfully...!");
+        loadData();
+      }
+    },
+  });
+}

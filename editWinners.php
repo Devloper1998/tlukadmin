@@ -267,10 +267,19 @@
 
                                                             </td>
 
+                                                            <td style="text-align:center;">
+                                                                <?php if ($i == count($winnerData)) { ?>
+
+                                                                <a href="javascript:void(0)" class="btn btn-danger "
+                                                                    onclick="remove('<?php echo $value['randw'];?>')">-</a>
+                                                            </td>
                                                             <td>
                                                                 <a href="javascript:void(0)"
                                                                     class="btn btn-info addRow">+</a>
-
+                                                                <?php } else { ?>
+                                                                <a href="javascript:void(0)" class="btn btn-danger"
+                                                                    onclick="remove('<?php echo $value['randw'];?>')">-</a>
+                                                                <?php } ?>
                                                             </td>
 
                                                         </tr>

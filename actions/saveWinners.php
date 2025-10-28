@@ -179,6 +179,9 @@ for ($i = 0; $i < $rowCount; $i++) {
 if(isset($_POST["action"]) && $_POST['action'] == 'delete'){
   $delevent = "DELETE FROM ".$tableName." where id = '".$_POST['id']."'";
     $deldata = $crud->execute($delevent);
+
+    $delEventList = "DELETE FROM tluk_winnerslist where winner_id = '".$_POST['id']."'";
+    $deldata = $crud->execute($delEventList);
     if ($deldata ){
       echo "true";
     }else{
@@ -225,5 +228,17 @@ if(isset($_POST["action"]) && $_POST['action'] == 'updateSortingOrder'){
         } else{
           echo "false";
         }
+}
+
+if(isset($_POST["action"]) && $_POST['action'] == 'deleteList'){
+
+   
+     $delEventList = "DELETE FROM tluk_winnerslist where randomId = '".$_POST['id']."'";
+    $deldata = $crud->execute($delEventList);
+    if ($deldata ){
+      echo "true";
+    }else{
+      echo "false";
+    }
 }
 ?>
