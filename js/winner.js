@@ -216,10 +216,17 @@ function remove(id) {
     type: "post",
     data: { id: id, action: "deleteList" },
     success: function (data) {
-      if (data == "true") {
-        toastr.success("deleted successfully...!");
-        loadData();
+      if (data.trim() == "true") {
+        toastr.success("Deleted successfully!");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      } else {
+        toastr.error("Failed to delete!");
       }
+    },
+    error: function (xhr, status, error) {
+      console.error("AJAX Error:", error);
     },
   });
 }
