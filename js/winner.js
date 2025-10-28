@@ -211,22 +211,25 @@ $(document).on("change blur", ".sorting-order-input", function () {
   }
 });
 function remove(id) {
-  $.ajax({
-    url: "actions/saveWinners.php",
-    type: "post",
-    data: { id: id, action: "deleteList" },
-    success: function (data) {
-      if (data.trim() == "true") {
-        toastr.success("Deleted successfully!");
-        setTimeout(function () {
-          location.reload();
-        }, 1000);
-      } else {
-        toastr.error("Failed to delete!");
-      }
-    },
-    error: function (xhr, status, error) {
-      console.error("AJAX Error:", error);
-    },
-  });
+  let check = confirm("Are You Sure You want To delete This Data..?");
+  if (check) {
+    $.ajax({
+      url: "actions/saveWinners.php",
+      type: "post",
+      data: { id: id, action: "deleteList" },
+      success: function (data) {
+        if (data.trim() == "true") {
+          toastr.success("Deleted successfully!");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        } else {
+          toastr.error("Failed to delete!");
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("AJAX Error:", error);
+      },
+    });
+  }
 }
