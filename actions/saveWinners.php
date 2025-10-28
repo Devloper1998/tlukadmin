@@ -72,12 +72,14 @@ if (isset($_POST["action"]) && $_POST['action'] == 'DisplayShow') {
                     te.event_name AS event_name, 
                     ts.sponsor_name AS sponsor_name,
                     tw.gift,
-                    tw.sorting_order
+                    tw.sorting_order,
+                    twl.*
                  FROM tluk_winners AS tw
                  LEFT JOIN tluk_events AS te ON tw.event_name = te.id
                  LEFT JOIN tluk_sponsors AS ts ON tw.sponsor_name = ts.id
+                 left join tluk_winnerslist as twl on twl.winner_id = tw.id
                  ORDER BY CASE WHEN tw.sorting_order IS NULL OR tw.sorting_order = 0 THEN 1 ELSE 0 END, CAST(tw.sorting_order AS UNSIGNED) ASC,
-                    tw.id DESC";
+                    tw.id DESC;";
 
     $show_data = $crud->getData($sql_show);
     foreach ($show_data as &$row) {
