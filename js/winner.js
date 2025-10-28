@@ -211,7 +211,6 @@ $(document).on("change blur", ".sorting-order-input", function () {
   }
 });
 function remove(id) {
-  alert(id);
   $.ajax({
     url: "actions/saveWinners.php",
     type: "post",
