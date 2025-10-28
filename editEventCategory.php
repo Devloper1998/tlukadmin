@@ -4,7 +4,7 @@
 <?php include('includes/header.php'); 
    $randomId = $_REQUEST['randomId'] && $_REQUEST['randomId'] != '' ? $_REQUEST['randomId'] : 0;
  
-   $categoryqry = "select * from tluk_categories  WHERE randomId = '".$randomId."'";
+   $categoryqry = "select * from tluk_eventcategories  WHERE randomId = '".$randomId."'";
    $categorydata = $crud->getData($categoryqry);
    
 
@@ -94,7 +94,7 @@
                                             <?php } ?>
                                             <div class="col-6">
                                                 <button type="button" class="btn btn-danger"
-                                                    onclick="location.href = 'manageCategories.php'">Cancel</button>
+                                                    onclick="location.href = 'manageEventCategory.php'">Cancel</button>
                                             </div>
                                             <?php if ($_GET['type'] == 'edit') { ?>
                                             <div class="col-6">
@@ -121,6 +121,6 @@
     <?php include('includes/footer.php'); ?>
 
 </body>
-<script type="text/javascript" src="js/category.js"></script>
+<script type="text/javascript" src="js/eventcategory.js"></script>
 
 </html>

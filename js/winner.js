@@ -15,15 +15,10 @@ function loadData() {
           return meta.row + meta.settings._iDisplayStart + 1;
         },
       },
-      {
-        data: "winner_name",
-        render: function (data, type, row) {
-          return '<div style="white-space:normal;">' + data + "</div>";
-        },
-      },
+
       { data: "ename" },
-      { data: "gift" },
-      { data: "sname" },
+      { data: "category_name" },
+
       {
         data: "sorting_order",
         render: function (data, type, row) {
@@ -100,7 +95,9 @@ $(function () {
     },
 
     submitHandler: function (form) {
+      let rowCount = $(".table1 tr").length;
       let formdata = new FormData();
+      let imageInputs = document.querySelectorAll('input[name="image[]"]');
 
       let x = $("#addformpage").serializeArray();
       $.each(x, function (i, field) {
@@ -108,7 +105,13 @@ $(function () {
       });
 
       formdata.append("action", "save");
+      formdata.append("rowcounts", rowCount);
 
+      imageInputs.forEach((input, index) => {
+        if (input.files.length > 0) {
+          formdata.append("image[]", input.files[0]);
+        }
+      });
       $("#save").attr("disabled", true);
       $("#pageloader").show();
 
@@ -141,6 +144,7 @@ $(function () {
   $("form[name='editform']").validate({
     submitHandler: function (form) {
       let formdata = new FormData();
+      let rowCount = $(".table1 tr").length;
 
       let x = $("#editform").serializeArray();
       $.each(x, function (i, field) {
@@ -148,9 +152,18 @@ $(function () {
       });
 
       formdata.append("action", "update");
+      formdata.append("rowcounts", rowCount);
+      let imageInputs1 = document.querySelectorAll(
+        'input[name="winner_image[]"]'
+      );
+      imageInputs1.forEach((input, index) => {
+        if (input.files.length > 0) {
+          formdata.append("winner_image[]", input.files[0]);
+        }
+      });
 
-      $("#save").attr("disabled", true);
-      $("#pageloader").show();
+      // $("#save").attr("disabled", true);
+      // $("#pageloader").show();
 
       $.ajax({
         type: "POST",
@@ -162,8 +175,8 @@ $(function () {
         data: formdata,
         success: function (data) {
           if (data.trim() == "true") {
-            $("#pageloader").hide();
-            $("#save").attr("disabled", false);
+            // $("#pageloader").hide();
+            // $("#save").attr("disabled", false);
             toastr.success("Updated Successfully...!");
             setTimeout(function () {
               location.href = "manageWinners.php";

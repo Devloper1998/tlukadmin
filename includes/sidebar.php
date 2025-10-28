@@ -91,6 +91,9 @@ $logo = str_replace('../', '', $getlogo[0]['header_logo']);
                                 Description</a></li>
                         <li><a href="manageEvents.php"><i class="fa fa-calendar" aria-hidden="true"></i> Add Events</a>
                         </li>
+                        <li><a href="manageEventCategory.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Event
+                                Category</a>
+                        </li>
                         <li><a href="manageSponsors.php"><i class="fa fa-calendar" aria-hidden="true"></i> Event
                                 Sponsors</a>
                         </li>

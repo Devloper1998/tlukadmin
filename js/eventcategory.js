@@ -1,26 +1,11 @@
 function loadData() {
-  $(".image-upload").on("change", function (event) {
-    var input = event.target;
-    var previewSelector = $(this).data("preview");
-
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        $(previewSelector).attr("src", e.target.result).show();
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
-  });
-
   $("#Form_Table").dataTable().fnDestroy();
   var table = $("#Form_Table").DataTable({
     processing: true,
     serverSide: false,
     pagingType: "full_numbers",
     ajax: {
-      url: "actions/saveCategory.php",
+      url: "actions/saveEventCategory.php",
       type: "post",
       data: { action: "Display" },
     },
@@ -36,7 +21,7 @@ function loadData() {
         data: "id",
         fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
           bnTd = `
-                <a href="editCategory.php?type=edit&randomId=${oData.randomId}" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                <a href="editEventCategory.php?type=edit&randomId=${oData.randomId}" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
                
                 
 
@@ -64,7 +49,7 @@ function RemoveAccount(id) {
   let check = confirm("Are You Sure You want To delete This Data..?");
   if (check) {
     $.ajax({
-      url: "actions/saveCategory.php",
+      url: "actions/saveEventCategory.php",
       type: "post",
       data: { id: id, action: "delete" },
       success: function (data) {
@@ -103,7 +88,7 @@ $(function () {
 
       $.ajax({
         type: "POST",
-        url: "actions/saveCategory.php",
+        url: "actions/saveEventCategory.php",
         enctype: "multipart/form-data",
         processData: false,
         contentType: false,
@@ -115,7 +100,7 @@ $(function () {
             $("#save").attr("disabled", false);
             toastr.success("Saved Successfully...!");
             setTimeout(function () {
-              location.href = "manageCategories.php";
+              location.href = "manageEventCategory.php";
             }, 1000);
           } else {
             toastr.error(data);
@@ -153,7 +138,7 @@ $(function () {
 
       $.ajax({
         type: "POST",
-        url: "actions/saveCategory.php",
+        url: "actions/saveEventCategory.php",
         enctype: "multipart/form-data",
         processData: false,
         contentType: false,
@@ -165,7 +150,7 @@ $(function () {
             $("#save").attr("disabled", false);
             toastr.success("Updated Successfully...!");
             setTimeout(function () {
-              location.href = "manageCategories.php";
+              location.href = "manageEventCategory.php";
             }, 1000);
           } else {
             toastr.error(data);
@@ -178,7 +163,7 @@ $(function () {
 
 function getValue(v) {
   $.ajax({
-    url: "actions/saveCategory.php",
+    url: "actions/saveEventCategory.php",
     type: "POST",
     data: { v: v, action: "verify_category" },
     success: function (data) {

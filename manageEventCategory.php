@@ -18,13 +18,13 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">Event Winners</h4>
+                                <h4 class="mb-0 font-size-18">Event Categories</h4>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item">
                                             <a href="javascript: void(0);">Dashboard</a>
                                         </li>
-                                        <li class="breadcrumb-item active">Event Winners</li>
+                                        <li class="breadcrumb-item active">Event Categories</li>
                                     </ol>
                                 </div>
                             </div>
@@ -39,20 +39,20 @@
                                 <div class="card-body">
                                     <div class="row mb-2">
                                         <div class="col-6">
-                                            <h4 class="card-title">Event Winners Data Table</h4>
+                                            <h4 class="card-title">Event Categories Data Table</h4>
                                         </div>
                                         <div class="col-6">
-                                            <a href="addWinners.php" class="btn btn-primary float-right">Add Winners</a>
+                                            <a href="addEventCategory.php" class="btn btn-primary float-right">Add
+                                                Event Category</a>
                                         </div>
                                     </div>
 
-                                    <table id="Form_Table" class="table text-wrap">
+                                    <table id="Form_Table" class="table dt-responsive nowrap">
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>Event Name</th>
-                                                <th>Category</th>
-                                                <th>Sorting Order</th>
+                                                <th>Category Name</th>
+
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -72,6 +72,6 @@
     <?php include('includes/footer.php'); ?>
 
 </body>
-<script type="text/javascript" src="js/winner.js"></script>
+<script type="text/javascript" src="js/eventcategory.js"></script>
 
 </html>
