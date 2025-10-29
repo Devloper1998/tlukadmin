@@ -207,6 +207,7 @@
                                                             <th>Gift</th>
                                                             <th>Sponsor Name</th>
                                                             <th>Winner Image</th>
+                                                            <th>Winner Order</th>
                                                             <th></th>
                                                         </tr>
 
@@ -265,6 +266,10 @@
                                                                 </img>
                                                                 <?php } ?>
 
+                                                            </td>
+                                                            <td><input type="text" class="form-control"
+                                                                    name="winnerOrder[]" id="winnerOrder"
+                                                                    value="<?php echo $value['winner_order'];?>">
                                                             </td>
 
                                                             <td style="text-align:center;">
@@ -365,6 +370,10 @@ function addrow() {
                 value="">
          
        </td>
+       <td><input type="text" class="form-control"
+                                                                    name="winnerOrder[]" id="winnerOrder${count+1}"
+                                                                    >
+                                                            </td>
        <td style="text-align: center;">
          <a href="javascript:void(0)" class="btn btn-danger remove">-</a>
        </td>

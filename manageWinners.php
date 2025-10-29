@@ -41,8 +41,14 @@
                                         <div class="col-6">
                                             <h4 class="card-title">Event Winners Data Table</h4>
                                         </div>
+
                                         <div class="col-6">
-                                            <a href="addWinners.php" class="btn btn-primary float-right">Add Winners</a>
+
+                                            <a href="manageSpotlightDesc.php"
+                                                class="btn btn-primary float-right ml-4">Add
+                                                Winners</a>
+                                            <a href="addWinners.php" class="btn btn-primary float-right">Add
+                                                Event</a>
                                         </div>
                                     </div>
 

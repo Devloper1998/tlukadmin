@@ -81,7 +81,7 @@ $(function () {
 
       $.ajax({
         type: "POST",
-        url: "actions/saveEvents.php",
+        url: "actions/saveWinners.php",
         enctype: "multipart/form-data",
         processData: false,
         contentType: false,
@@ -93,7 +93,7 @@ $(function () {
             $("#save").attr("disabled", false);
             toastr.success("Updated Successfully...!");
             setTimeout(function () {
-              location.href = "manageEventDesc.php";
+              location.href = "manageSpotlightDesc.php";
             }, 1000);
           } else {
             toastr.error(data);

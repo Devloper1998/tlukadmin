@@ -8,6 +8,8 @@ $crud = new Crud();
 $tableName = 'tluk_winners';
 $tableName1 = 'tluk_winnerslist';
 $event_name    = isset($_POST['event_name'])?trim($_POST['event_name']):'';
+$event_title    = isset($_POST['event_title'])?trim($_POST['event_title']):'';
+$event_description    = isset($_POST['event_description'])?trim($_POST['event_description']):'';
 $eventcategory_name    = isset($_POST['eventcategory_name'])?trim($_POST['eventcategory_name']):'';
 $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
 $rand      = uniqid(substr(0, 10));
@@ -22,6 +24,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'save'){
   $winner_name    = $_POST['winner_name'][$i];
   $gift    = $_POST['gift'][$i];
   $sponsor_name    = $_POST['sponsor_name'][$i];
+  $winnerOrder    = $_POST['winnerOrder'][$i];
 $randomId = $rand.$i;
  $image = '';
 $image_targetDir = "../uploads/winners/";
@@ -41,7 +44,7 @@ if (isset($_FILES['image']['name'][$i]) && $_FILES['image']['name'][$i] != '') {
     }
 } 
 
-    $winnerQry = "insert into tluk_winnerslist set winner_id ='".$insData."', winner_name = '".$winner_name."', gift = '".$gift."',sponsor_name = '".$sponsor_name."',image ='".$image."',randomId = '".$randomId."'";
+    $winnerQry = "insert into tluk_winnerslist set winner_id ='".$insData."', winner_name = '".$winner_name."', gift = '".$gift."',sponsor_name = '".$sponsor_name."',image ='".$image."',winner_order= '".$winnerOrder."',randomId = '".$randomId."'";
    
       $result = $crud->execute($winnerQry);
   }
@@ -118,6 +121,7 @@ for ($i = 0; $i < $rowCount; $i++) {
     $winner_name = $_POST['winner_name'][$i];
     $gift = $_POST['gift'][$i];
     $sponsor_name = $_POST['sponsor_name'][$i];
+    $winnerOrder = $_POST['winnerOrder'][$i];
     $old_image = $_POST['old_image'][$i];
     $hidden_id = $_POST['hidden_id'][$i];
     $winner_id = $_POST['winner_id'];
@@ -142,12 +146,12 @@ for ($i = 0; $i < $rowCount; $i++) {
 
     if (!empty($hidden_id)) {
         $update = "UPDATE tluk_winnerslist 
-                   SET winner_name='$winner_name', gift='$gift', sponsor_name='$sponsor_name', image='$imagePath' 
+                   SET winner_name='$winner_name', gift='$gift', sponsor_name='$sponsor_name', image='$imagePath',winner_order ='".$winnerOrder."' 
                    WHERE randomId='$hidden_id'";
         $updateResult = $crud->execute($update);
     } else {
         $newRandId = uniqid();
-        $insert = "INSERT INTO tluk_winnerslist set winner_id ='".$winner_id."',winner_name ='".$winner_name."',gift='".$gift."',sponsor_name='".$sponsor_name."',image='".$imagePath."',randomId='".$newRandId."'";
+        $insert = "INSERT INTO tluk_winnerslist set winner_id ='".$winner_id."',winner_name ='".$winner_name."',gift='".$gift."',sponsor_name='".$sponsor_name."',winner_order ='".$winnerOrder."',image='".$imagePath."',randomId='".$newRandId."'";
         $result = $crud->execute($insert);
     }
 }
@@ -175,7 +179,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'delete'){
     }
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'updatedesc'){
-   $updatestory = "UPDATE tluk_eventdescription SET event_description = '".$event_description."' WHERE randomId = '".$hdn_id."'";
+   $updatestory = "UPDATE tluk_spotlightdescription SET event_title ='".$event_title."',event_description = '".$event_description."' WHERE randomId = '".$hdn_id."'";
    $updatedata = $crud->execute($updatestory);
     if ($updatedata ){
       echo "true";

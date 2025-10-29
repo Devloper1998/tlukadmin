@@ -143,6 +143,7 @@ $getSponsor = $crud->getData($selSponsor);
                                                             <th>Gift</th>
                                                             <th>Sponsor Name</th>
                                                             <th>Winner Image</th>
+                                                            <th>Winner Order</th>
                                                             <th></th>
                                                         </tr>
 
@@ -186,6 +187,8 @@ $getSponsor = $crud->getData($selSponsor);
                                                             </td>
                                                             <td><input type="file" name="image[]" id="image"
                                                                     class="form-control"></td>
+                                                            <td><input type="text" class="form-control"
+                                                                    name="winnerOrder[]" id="winnerOrder"></td>
                                                             <td>
                                                                 <a href="javascript:void(0)"
                                                                     class="btn btn-info addRow">+</a>
@@ -260,6 +263,7 @@ function addrow() {
 </div>
     </td>
     <td><input type="file" name="image[]" id="image${count+1}" class="form-control"></td>
+    <td><input type="text" class="form-control" name="winnerOrder[]" id="winnerOrder${count+1}"></td>
     <td style="text-align: center;"><a href="javascript:void(0)" class="btn btn-danger remove">-</a></td>
     <td style="text-align: center;"><a href="javascript:void(0)"class="btn btn-info addRow" onclick ="add()">+</a></td>
    </tr>`;
