@@ -7,8 +7,8 @@ class DbConfig
 //     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
 //   }
 
-    // private $_host = '82.25.121.2';
-    private $_host = 'localhost';
+    private $_host = '82.25.121.2';
+    // private $_host = 'localhost';
     private $_username = 'u240534632_teluguladies';
     private $_password = '3N+yEBF!:=';
     private $_database = 'u240534632_teluguladies';
