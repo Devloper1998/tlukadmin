@@ -164,8 +164,8 @@ $(function () {
         }
       });
 
-      // $("#save").attr("disabled", true);
-      // $("#pageloader").show();
+      $("#save").attr("disabled", true);
+      $("#pageloader").show();
 
       $.ajax({
         type: "POST",
@@ -177,8 +177,8 @@ $(function () {
         data: formdata,
         success: function (data) {
           if (data.trim() == "true") {
-            // $("#pageloader").hide();
-            // $("#save").attr("disabled", false);
+            $("#pageloader").hide();
+            $("#save").attr("disabled", false);
             toastr.success("Updated Successfully...!");
             setTimeout(function () {
               location.href = "manageWinners.php";

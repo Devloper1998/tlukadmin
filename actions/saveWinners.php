@@ -35,8 +35,6 @@ $randomId = $rand.$i;
         if (!is_array($sponsor_name)) {
             $sponsor_name = [$sponsor_name];
         }
-
-        // Convert sponsor IDs to comma-separated string
         $sponsor_list = implode(',', $sponsor_name);
  $image = '';
 $image_targetDir = "../uploads/winners/";
@@ -117,6 +115,11 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
 //         }
 // }
 if (isset($_POST["action"]) && $_POST['action'] == 'update') {
+
+    // print_r($_POST);
+    // print_r($_FILES);
+    // exit;
+
     $event_name = $_POST['event_name'];
     $eventcategory_name = $_POST['eventcategory_name'];
     $hdn_id = $_POST['hdn_id']; 
@@ -132,7 +135,8 @@ if (isset($_POST["action"]) && $_POST['action'] == 'update') {
 for ($i = 0; $i < $rowCount; $i++) {
     $winner_name = $_POST['winner_name'][$i];
     $gift = $_POST['gift'][$i];
-    $sponsor_name = $_POST['sponsor_name'][$i];
+     $sponsor_name = isset($_POST['sponsor_name'][$i]) ? $_POST['sponsor_name'][$i] : [];
+        $sponsor_list = implode(',', (array)$sponsor_name);
     $winnerOrder = $_POST['winnerOrder'][$i];
     $old_image = $_POST['old_image'][$i];
     $hidden_id = $_POST['hidden_id'][$i];
@@ -158,12 +162,12 @@ for ($i = 0; $i < $rowCount; $i++) {
 
     if (!empty($hidden_id)) {
         $update = "UPDATE tluk_winnerslist 
-                   SET winner_name='$winner_name', gift='$gift', sponsor_name='$sponsor_name', image='$imagePath',winner_order ='".$winnerOrder."' 
+                   SET winner_name='$winner_name', gift='$gift', sponsor_name='$sponsor_list', image='$imagePath',winner_order ='".$winnerOrder."' 
                    WHERE randomId='$hidden_id'";
         $updateResult = $crud->execute($update);
     } else {
         $newRandId = uniqid();
-        $insert = "INSERT INTO tluk_winnerslist set winner_id ='".$winner_id."',winner_name ='".$winner_name."',gift='".$gift."',sponsor_name='".$sponsor_name."',winner_order ='".$winnerOrder."',image='".$imagePath."',randomId='".$newRandId."'";
+        $insert = "INSERT INTO tluk_winnerslist set winner_id ='".$winner_id."',winner_name ='".$winner_name."',gift='".$gift."',sponsor_name='".$sponsor_list."',winner_order ='".$winnerOrder."',image='".$imagePath."',randomId='".$newRandId."'";
         $result = $crud->execute($insert);
     }
 }

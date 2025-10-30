@@ -4,7 +4,7 @@
 <?php include('includes/header.php'); 
    $randomId = $_REQUEST['randomId'] && $_REQUEST['randomId'] != '' ? $_REQUEST['randomId'] : 0;
   
-     $winnerqry = "SELECT tw.*,tw.id AS winnerId,tw.randomId AS winerrand,tec.category_name,te.event_name AS ename,twl.id AS winnerListId, twl.image AS winnerImage,twl.gift,twl.winner_name,twl.randomId as randw, twl.winner_order,
+    $winnerqry = "SELECT tw.*,tw.id AS winnerId,tw.randomId AS winerrand,tec.category_name,te.event_name AS ename,twl.id AS winnerListId, twl.image AS winnerImage,twl.gift,twl.winner_name,twl.randomId as randw, twl.winner_order,
     (
         SELECT GROUP_CONCAT(ts.sponsor_name SEPARATOR ', ')
         FROM tluk_sponsors ts
@@ -16,12 +16,7 @@ WHERE tw.randomId = '".$randomId."'";
    $winnerData = $crud->getData($winnerqry);
 
 
-
-
- 
-
    
-
 
    $selEvents = "select * from tluk_events";
    $getEvents  = $crud->getData($selEvents);
@@ -150,7 +145,6 @@ WHERE tw.randomId = '".$randomId."'";
                                                             <th>Gift</th>
                                                             <th>Sponsor Name</th>
                                                             <th>Winner Image</th>
-                                                            <th>Winner Order</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -166,13 +160,10 @@ WHERE tw.randomId = '".$randomId."'";
 
                                                                 <span><?php echo $value['gift'];?></span>
                                                             </td>
-
                                                             <td>
-                                                                <span>
-                                                                    <?php echo $value['sname']; ?>
-                                                                </span>
-                                                            </td>
 
+                                                                <span><?php echo $value['sname'];?></span>
+                                                            </td>
 
                                                             <td>
                                                                 <img src="tlukadmin/<?php echo htmlspecialchars($value['winnerImage']); ?>"
@@ -180,7 +171,6 @@ WHERE tw.randomId = '".$randomId."'";
                                                                     style="width:100px;height:auto;border-radius:6px;">
                                                                 </img>
                                                             </td>
-                                                            <td><?php echo $value['winner_order'];?></td>
                                                         </tr>
                                                         <?php $i++;} ?>
 
@@ -260,37 +250,27 @@ WHERE tw.randomId = '".$randomId."'";
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <select
-                                                                            name="sponsor_name[<?php echo $i-1; ?>][]"
-                                                                            class="form-control sponsor-select"
-                                                                            multiple>
-                                                                            <option value="">-- Select option --
-                                                                            </option>
-                                                                            <?php 
-                                                                             $test = $winnerData[0]['sname'];
-                                                                            
-                                                                           
-          $rowSponsorIds = explode(',', $test);
-          print_r($rowSponsorIds);
-          foreach ($getSponsor as $sponsor) { 
-              $selected = in_array($sponsor['id'], $rowSponsorIds) ? 'selected' : '';
-        ?>
-                                                                            <option
-                                                                                value="<?php echo $sponsor['id']; ?>"
-                                                                                <?php echo $selected; ?>>
-                                                                                <?php echo htmlspecialchars($sponsor['sponsor_name']); ?>
-                                                                            </option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                                <select name="sponsor_name[<?php echo $i-1; ?>][]"
+                                                                    class="form-control sponsor-select" multiple>
+                                                                    <option value="">-- Select option --
+                                                                    </option>
+                                                                    <?php 
+                                                                    $sponsorNames = !empty($value['sname']) ? explode(',', $value['sname']) : [];
+                                                                    $sponsorNames = array_map('trim', $sponsorNames); 
 
+                                                                    foreach ($getSponsor as $sponsor) { 
+                                                                        $selected = in_array(trim($sponsor['sponsor_name']), $sponsorNames) ? 'selected' : '';
+                                                                    ?>
+                                                                    <option value="<?php echo $sponsor['id']; ?>"
+                                                                        <?php echo $selected; ?>>
+                                                                        <?php echo htmlspecialchars($sponsor['sponsor_name']); ?>
+                                                                    </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </td>
                                                             <td>
 
-                                                                <input type=" file" name="winner_image[]"
+                                                                <input type="file" name="winner_image[]"
                                                                     id="winner_image" class="form-control">
                                                                 <input type="hidden" class="form-control"
                                                                     name="old_image[]" id="old_image"
@@ -388,7 +368,7 @@ function addrow() {
        <td>
          <div class="col-12">
            <div class="form-group">
-             <select name="sponsor_name[]" id="sponsor_name${count+1}" class="form-control sponsor-select" multiple>
+             <select name="sponsor_name[${count}][]" id="sponsor_name${count+1}" class="form-control sponsor-select" multiple >
                <option value="">--select option--</option>
                <?php foreach ($getSponsor as $key => $value) { ?>
                <option value="<?php echo $value['id'] ?>">
@@ -421,19 +401,14 @@ function addrow() {
        </td>
     </tr>`;
 
+
     $('tbody.table1').append(addTr);
     $('.sponsor-select').select2({
         placeholder: "Select one or more sponsors"
     });
 }
-
-
-
-
-
 $('.addRow').on('click', function() {
     addrow();
-
 });
 
 function add() {
@@ -446,6 +421,12 @@ $('tbody').on('click', '.remove', function() {
         $(this).find('td')[0].innerHTML = i + 1;
     })
 
+});
+
+$(document).ready(function() {
+    $('.sponsor-select').select2({
+        placeholder: "Select one or more sponsors"
+    });
 });
 </script>
 
