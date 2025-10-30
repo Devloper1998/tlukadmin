@@ -173,8 +173,10 @@ $getSponsor = $crud->getData($selSponsor);
                                                                 <div class="col-12">
                                                                     <div class="form-group">
 
-                                                                        <select name="sponsor_name[]" id="sponsor_name"
-                                                                            class="form-control">
+                                                                        <select name="sponsor_name[0][]"
+                                                                            id="sponsor_name0"
+                                                                            class="form-control sponsor-select"
+                                                                            multiple>
                                                                             <option value="">--select option--</option>
                                                                             <?php foreach ($getSponsor as $key => $value) { ?>
                                                                             <option value="<?php echo $value['id'] ?>">
@@ -250,15 +252,12 @@ function addrow() {
     <td>
    <div class="col-12">
     <div class="form-group">
-        <select name="sponsor_name[]" id="sponsor_name${count+1}"
-            class="form-control">
-            <option value="">--select option--</option>
-            <?php foreach ($getSponsor as $key => $value) { ?>
-            <option value="<?php echo $value['id'] ?>">
-                <?php echo $value['sponsor_name']?>
-            </option>
-            <?php }?>
-        </select>
+        <select name="sponsor_name[${count}][]" id="sponsor_name${count+1}" class="form-control sponsor-select" multiple>
+                <option value="">--select option--</option>
+                <?php foreach ($getSponsor as $key => $value) { ?>
+                <option value="<?php echo $value['id'] ?>"><?php echo $value['sponsor_name']?></option>
+                <?php } ?>
+            </select>
     </div>
 </div>
     </td>
@@ -269,7 +268,9 @@ function addrow() {
    </tr>`;
 
     $('tbody.table1').append(addTr);
-
+    $('.sponsor-select').select2({
+        placeholder: "Select one or more sponsors"
+    });
 };
 
 
@@ -290,6 +291,12 @@ $('tbody').on('click', '.remove', function() {
     })
 
 });
+$(document).ready(function() {
+    $('.sponsor-select').select2({
+        placeholder: "Select one or more sponsors"
+    });
+});
 </script>
+
 
 </html>

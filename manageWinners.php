@@ -44,10 +44,9 @@
 
                                         <div class="col-6">
 
-                                            <a href="manageSpotlightDesc.php"
-                                                class="btn btn-primary float-right ml-4">Add
+                                            <a href="addWinners.php" class="btn btn-primary float-right ml-4">Add
                                                 Winners</a>
-                                            <a href="addWinners.php" class="btn btn-primary float-right">Add
+                                            <a href="manageSpotlightDesc.php" class="btn btn-primary float-right">Add
                                                 Event</a>
                                         </div>
                                     </div>

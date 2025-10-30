@@ -15,6 +15,12 @@ $hdn_id        = isset($_POST['hdn_id'])?trim($_POST['hdn_id']):'';
 $rand      = uniqid(substr(0, 10));
 if(isset($_POST["action"]) && $_POST['action'] == 'save'){
     
+    // print_r($_POST);
+    // print_r($_FILES);
+    // exit;
+
+    
+
 	 $insEventQry = "INSERT INTO ".$tableName." SET event_name = '".$event_name."',eventcategory_name = '".$eventcategory_name."',randomId ='".$rand."'";
     $insData =$crud->insertLastId($insEventQry);
     $countfiles = $_POST['rowcounts'];
@@ -23,9 +29,15 @@ if(isset($_POST["action"]) && $_POST['action'] == 'save'){
 
   $winner_name    = $_POST['winner_name'][$i];
   $gift    = $_POST['gift'][$i];
-  $sponsor_name    = $_POST['sponsor_name'][$i];
   $winnerOrder    = $_POST['winnerOrder'][$i];
 $randomId = $rand.$i;
+ $sponsor_name = isset($_POST['sponsor_name'][$i]) ? $_POST['sponsor_name'][$i] : [];
+        if (!is_array($sponsor_name)) {
+            $sponsor_name = [$sponsor_name];
+        }
+
+        // Convert sponsor IDs to comma-separated string
+        $sponsor_list = implode(',', $sponsor_name);
  $image = '';
 $image_targetDir = "../uploads/winners/";
 if (!is_dir($image_targetDir)) {
@@ -44,7 +56,7 @@ if (isset($_FILES['image']['name'][$i]) && $_FILES['image']['name'][$i] != '') {
     }
 } 
 
-    $winnerQry = "insert into tluk_winnerslist set winner_id ='".$insData."', winner_name = '".$winner_name."', gift = '".$gift."',sponsor_name = '".$sponsor_name."',image ='".$image."',winner_order= '".$winnerOrder."',randomId = '".$randomId."'";
+    $winnerQry = "insert into tluk_winnerslist set winner_id ='".$insData."', winner_name = '".$winner_name."', gift = '".$gift."',sponsor_name = '".$sponsor_list."',image ='".$image."',winner_order= '".$winnerOrder."',randomId = '".$randomId."'";
    
       $result = $crud->execute($winnerQry);
   }
@@ -188,7 +200,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'updatedesc'){
     }
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'DisplayDesc'){
-    $sql_show = "SELECT * FROM tluk_eventdescription  order by id desc";
+    $sql_show = "SELECT * FROM tluk_spotlightdescription  order by id desc";
     $show_data = $crud->getData($sql_show);        
        $response = array(
         "draw" => 1,
