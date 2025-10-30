@@ -66,7 +66,7 @@ if (isset($_FILES['image']['name'][$i]) && $_FILES['image']['name'][$i] != '') {
         }
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
-    $sql_show = "SELECT tw.*,tec.category_name,te.event_name as ename,ts.sponsor_name as sname FROM tluk_winners as tw left join tluk_events as te on tw.event_name = te.id  left join tluk_sponsors as ts on ts.id = tw.sponsor_name  left join tluk_eventcategories as tec on tw.eventcategory_name = tec.id order by tw.id desc";
+     $sql_show = "SELECT tw.*,tec.category_name,te.event_name as ename FROM tluk_winners as tw left join tluk_events as te on tw.event_name = te.id  left join tluk_eventcategories as tec on tw.eventcategory_name = tec.id order by tw.id desc";
     $show_data = $crud->getData($sql_show);        
        $response = array(
         "draw" => 1,
@@ -77,10 +77,39 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Display'){
 }
 if (isset($_POST["action"]) && $_POST['action'] == 'DisplayShow') { 
     // $sql_show = "SELECT tw.id,twl.winner_name, tw.status, tw.randomId, tw.sponsor_logo, te.event_name AS event_name, tec.category_name, ts.sponsor_name as sname,twl.gift,tw.sorting_order,twl.*  FROM tluk_winners AS tw LEFT JOIN tluk_events AS te ON tw.event_name = te.id left join tluk_winnerslist as twl on twl.winner_id = tw.id LEFT JOIN tluk_sponsors AS ts ON twl.sponsor_name = ts.id left join tluk_eventcategories as tec on tec.id = tw.eventcategory_name ORDER BY CASE WHEN tw.sorting_order IS NULL OR tw.sorting_order = 0 THEN 1 ELSE 0 END, CAST(tw.sorting_order AS UNSIGNED) ASC, tw.id DESC;";
-    $sql_show ="SELECT  tw.id,  tw.randomId, tw.status, tw.sorting_order,
-    te.event_name AS event_name, tec.category_name,twl.id AS winnerListId,
-    twl.winner_name, twl.gift, twl.winner_order,twl.image AS winner_image,  ts.sponsor_name AS sname FROM tluk_winners AS tw LEFT JOIN tluk_events AS te ON tw.event_name = te.id LEFT JOIN tluk_eventcategories AS tec ON tec.id = tw.eventcategory_name LEFT JOIN tluk_winnerslist AS twl ON twl.winner_id = tw.id
-    LEFT JOIN tluk_sponsors AS ts ON FIND_IN_SET(ts.id, twl.sponsor_name) ORDER BY CASE WHEN tw.sorting_order IS NULL OR tw.sorting_order = 0 THEN 1  ELSE 0  END, CAST(tw.sorting_order AS UNSIGNED) ASC,tw.id DESC, CAST(twl.winner_order AS UNSIGNED) ASC;";
+    $sql_show ="SELECT  
+    tw.id,
+    tw.randomId,
+    tw.status,
+    tw.sorting_order,
+    te.event_name AS event_name,
+    tec.category_name,
+    twl.id AS winnerListId,
+    twl.winner_name,
+    twl.gift,
+    twl.winner_order,
+    twl.image AS winner_image,
+
+    (
+        SELECT GROUP_CONCAT(ts.sponsor_name SEPARATOR ', ')
+        FROM tluk_sponsors ts
+        WHERE FIND_IN_SET(ts.id, twl.sponsor_name)
+    ) AS sname
+
+FROM 
+    tluk_winners AS tw
+LEFT JOIN 
+    tluk_events AS te ON tw.event_name = te.id
+LEFT JOIN 
+    tluk_eventcategories AS tec ON tec.id = tw.eventcategory_name
+LEFT JOIN 
+    tluk_winnerslist AS twl ON twl.winner_id = tw.id
+ORDER BY 
+    CASE WHEN tw.sorting_order IS NULL OR tw.sorting_order = 0 THEN 1 ELSE 0 END,
+    CAST(tw.sorting_order AS UNSIGNED) ASC,
+    tw.id DESC,
+    CAST(twl.winner_order AS UNSIGNED) ASC;
+";
 
     $show_data = $crud->getData($sql_show);
     foreach ($show_data as &$row) {
