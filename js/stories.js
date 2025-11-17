@@ -172,7 +172,7 @@ $(document).ready(function () {
 });
 
 // CKEditor initialization
-["description1", "description2"].forEach(function (id) {
+["description1", "description2","designation"].forEach(function (id) {
   CKEDITOR.replace(id, {
     width: "100%",
     height: "300px",
@@ -260,7 +260,7 @@ function setupValidation(formName, submitAction) {
       var formdata = new FormData(form);
 
       // Append CKEditor values
-      ["story_description", "description1", "description2"].forEach(function (
+      ["story_description", "description1", "description2","designation"].forEach(function (
         id
       ) {
         if (CKEDITOR.instances[id]) {

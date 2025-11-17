@@ -108,8 +108,10 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Category <span class="star"></span></label>
-                                                    <input type="text" name="designation" id="designation"
-                                                        class="form-control">
+                                                    <textarea name="designation" id="designation"
+                                                        class="form-control"></textarea>
+                                                    <!-- <input type="text" name="designation" id="designation"
+                                                        class="form-control"> -->
                                                 </div>
                                             </div>
                                             <div class="col-12">
