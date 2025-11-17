@@ -17,14 +17,17 @@ function loadData() {
     reader.onload = function (e) {
       const img = new Image();
       img.onload = function () {
-        let requiredWidth = 800;
-        let requiredHeight = 600;
+        // let requiredWidth = 800;
+        // let requiredHeight = 600;
+         let requiredWidth = 1080;
+        let requiredHeight = 1350;
+
 
         switch (fieldId) {
           case "main_image":
-            requiredWidth = 429;
+            requiredWidth = 1080;
             // requiredWidth = 800;
-            requiredHeight = 600;
+            requiredHeight = 1350;
             // requiredHeight = 600;
             break;
           case "profile_image":
