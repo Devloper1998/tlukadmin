@@ -22,8 +22,10 @@ function loadData() {
 
         switch (fieldId) {
           case "main_image":
-            requiredWidth = 800;
+            requiredWidth = 429;
+            // requiredWidth = 800;
             requiredHeight = 600;
+            // requiredHeight = 600;
             break;
           case "profile_image":
             requiredWidth = 400;
