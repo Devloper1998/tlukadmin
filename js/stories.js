@@ -101,7 +101,7 @@ function loadData() {
         data: "profile_image",
         render: function (data) {
           return data
-            ? `<img src="tlukadmin/${data}" alt="Image" style="width:80px;height:auto;border-radius:4px;" />`
+            ? `<img src="tlukadmin/${data}" alt="Image" style="height:auto;border-radius:4px;" />`
             : "No Image";
         },
       },

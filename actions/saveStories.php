@@ -96,7 +96,7 @@ foreach ($imageFields as $field) {
 
         switch ($field) {
             case 'main_image':
-                processImageWithGD($tempPath, $targetFilePath, 800, 600);
+                processImageWithGD($tempPath, $targetFilePath, 1080, 1350);
                 break;
             case 'profile_image':
                 processImageWithGD($tempPath, $targetFilePath, 400, 400);
