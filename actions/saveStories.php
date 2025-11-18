@@ -154,7 +154,7 @@ if(isset($_POST["action"]) && $_POST['action'] == 'Displays'){
     echo json_encode($response);
 }
 if(isset($_POST["action"]) && $_POST['action'] == 'update'){
-    $upQry = "UPDATE ".$tableName." SET title = '".$title."', name ='".$name."',designation ='".$designation."',main_image ='".$main_image."',profile_image ='".$profile_image."',description1 ='".$description1."'  WHERE randomId = '".$hdn_id."'";
+     $upQry = "UPDATE ".$tableName." SET title = '".$title."', name ='".$name."',designation ='".$designation."',main_image ='".$main_image."',profile_image ='".$profile_image."',description1 ='".$description1."'  WHERE randomId = '".$hdn_id."'";
     $updateData = $crud->execute($upQry);
     if($updateData)
     {
