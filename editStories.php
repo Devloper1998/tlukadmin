@@ -124,9 +124,11 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Category</label>
-                                                    <input type="text" name="designation" id="designation"
+                                                    <textarea name="designation" id="designation" class="form-control"
+                                                        readonly><?php echo $res_data[0]['designation']?></textarea>
+                                                    <!-- <input type="text" name="designation" id="designation"
                                                         class="form-control"
-                                                        value="<?php echo $res_data[0]['designation']?>" readonly>
+                                                        value="<?php //echo $res_data[0]['designation']?>" readonly> -->
                                                 </div>
                                             </div>
                                             <div class="col-12">
