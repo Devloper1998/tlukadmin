@@ -20,7 +20,7 @@
             font-family: 'Poppins', sans-serif;
            background-image: 
         linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
-        url('assets/images/OR7TU70-removebg-preview.png');
+        url('./assets/images/OR7TU70-removebg-preview.png');
             background-size: cover;
             background-position: center;
             ackground-repeat: no-repeat;      /* Avoid repetition */
