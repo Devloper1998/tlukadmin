@@ -60,15 +60,10 @@ $imageFields = ['main_image', 'profile_image'];
 $uploadsDir = "../uploads/stories/";
 
 // Image Resize & Convert to WebP using GD
-function processImageWithGD($srcPath, $destPath)
-{
-    $width = 750;   // FIXED WIDTH
-    $height = 1050; // FIXED HEIGHT
-
+function processImageWithGD($srcPath, $destPath, $width, $height) {
     $info = getimagesize($srcPath);
     $mime = $info['mime'];
 
-    // Load image
     switch ($mime) {
         case 'image/jpeg':
             $srcImage = imagecreatefromjpeg($srcPath);
@@ -83,36 +78,38 @@ function processImageWithGD($srcPath, $destPath)
             return false;
     }
 
-    // Create high-quality canvas
-    $resized = imagecreatetruecolor($width, $height);
-    imagealphablending($resized, false);
-    imagesavealpha($resized, true);
-
-    // High-quality scaling
-    imagecopyresampled(
-        $resized,
-        $srcImage,
-        0, 0,
-        0, 0,
-        $width, $height,
-        imagesx($srcImage),
-        imagesy($srcImage)
-    );
-
-    // DPI 300 for high quality
-    if (function_exists("imageresolution")) {
-        imageresolution($resized, 300, 300);
-    }
-
-    // Save as WebP
-    imagewebp($resized, $destPath, 95);
-
+    $resizedImage = imagescale($srcImage, $width, $height);
+    imagewebp($resizedImage, $destPath, 95);
     imagedestroy($srcImage);
-    imagedestroy($resized);
-
+    imagedestroy($resizedImage);
     return true;
 }
 
+foreach ($imageFields as $field) {
+    $oldField = 'old' . $field;
+    $$field = isset($_POST[$oldField]) ? trim($_POST[$oldField]) : '';
+
+    if (isset($_FILES[$field]) && $_FILES[$field]['name'] != "") {
+        $tempPath = $_FILES[$field]["tmp_name"];
+        $targetFileName = $randomId . "_" . $field . ".webp";
+        $targetFilePath = $uploadsDir . $targetFileName;
+
+        switch ($field) {
+            case 'main_image':
+                processImageWithGD($tempPath, $targetFilePath, 750, 1050);
+                break;
+            case 'profile_image':
+                processImageWithGD($tempPath, $targetFilePath, 400, 400);
+                break;
+        }
+
+        $$field = $targetFilePath;
+
+        if ($_POST['action'] == 'update' && file_exists($_POST[$oldField])) {
+            unlink($_POST[$oldField]);
+        }
+    }
+}
 if(isset($_POST["action"]) && $_POST['action'] == 'save'){
 	  $insQry = "INSERT INTO ".$tableName." SET title = '".$title."', name ='".$name."',designation ='".$designation."',main_image ='".$main_image."',profile_image ='".$profile_image."',description1 ='".$description1."',randomId = '".$randomId."'";
 	  $insData =$crud->insertLastId($insQry);
