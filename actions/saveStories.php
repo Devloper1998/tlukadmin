@@ -79,7 +79,7 @@ function processImageWithGD($srcPath, $destPath, $width, $height) {
     }
 
     $resizedImage = imagescale($srcImage, $width, $height);
-    imagewebp($resizedImage, $destPath, 80);
+    imagewebp($resizedImage, $destPath, 95);
     imagedestroy($srcImage);
     imagedestroy($resizedImage);
     return true;
@@ -96,7 +96,7 @@ foreach ($imageFields as $field) {
 
         switch ($field) {
             case 'main_image':
-                processImageWithGD($tempPath, $targetFilePath, 1080, 1350);
+                processImageWithGD($tempPath, $targetFilePath, 750, 1050);
                 break;
             case 'profile_image':
                 processImageWithGD($tempPath, $targetFilePath, 400, 400);

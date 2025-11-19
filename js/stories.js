@@ -19,15 +19,15 @@ function loadData() {
       img.onload = function () {
         // let requiredWidth = 800;
         // let requiredHeight = 600;
-         let requiredWidth = 1080;
-        let requiredHeight = 1350;
+         let requiredWidth = 750;
+        let requiredHeight = 1050;
 
 
         switch (fieldId) {
           case "main_image":
-            requiredWidth = 1080;
+            requiredWidth = 750;
             // requiredWidth = 800;
-            requiredHeight = 1350;
+            requiredHeight = 1050;
             // requiredHeight = 600;
             break;
           case "profile_image":
