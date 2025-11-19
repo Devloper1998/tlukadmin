@@ -60,21 +60,13 @@ $imageFields = ['main_image', 'profile_image'];
 $uploadsDir = "../uploads/stories/";
 
 // Image Resize & Convert to WebP using GD
-function processImageWithGD($srcPath, $destPath, $width, $height)
+function processImageWithGD($srcPath, $destPath)
 {
+    $width = 750;   // FIXED WIDTH
+    $height = 1050; // FIXED HEIGHT
+
     $info = getimagesize($srcPath);
     $mime = $info['mime'];
-
-    // Read DPI (only JPEG/PNG EXIF lo untadi)
-    $dpiX = 72;
-    $dpiY = 72;
-    if (function_exists('exif_read_data') && $mime === 'image/jpeg') {
-        $exif = @exif_read_data($srcPath);
-        if (!empty($exif['XResolution']) && !empty($exif['YResolution'])) {
-            $dpiX = intval($exif['XResolution']);
-            $dpiY = intval($exif['YResolution']);
-        }
-    }
 
     // Load image
     switch ($mime) {
@@ -91,17 +83,32 @@ function processImageWithGD($srcPath, $destPath, $width, $height)
             return false;
     }
 
-    // Resize
-    $resizedImage = imagescale($srcImage, $width, $height);
+    // Create high-quality canvas
+    $resized = imagecreatetruecolor($width, $height);
+    imagealphablending($resized, false);
+    imagesavealpha($resized, true);
 
-    // Set DPI (GD stores as metadata for some formats)
-    imageresolution($resizedImage, $dpiX, $dpiY);
+    // High-quality scaling
+    imagecopyresampled(
+        $resized,
+        $srcImage,
+        0, 0,
+        0, 0,
+        $width, $height,
+        imagesx($srcImage),
+        imagesy($srcImage)
+    );
+
+    // DPI 300 for high quality
+    if (function_exists("imageresolution")) {
+        imageresolution($resized, 300, 300);
+    }
 
     // Save as WebP
-    imagewebp($resizedImage, $destPath, 95);
+    imagewebp($resized, $destPath, 95);
 
     imagedestroy($srcImage);
-    imagedestroy($resizedImage);
+    imagedestroy($resized);
 
     return true;
 }
