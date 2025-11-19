@@ -40,7 +40,7 @@
                                     <div class="p-5">
                                         <div class="text-center mb-5">
                                             <a href="#" class="text-dark font-size-22 font-family-secondary">
-                                                 <b>Telugu Ladies In UK123
+                                                 <b>Telugu Ladies In UK
                                                  (TLUK)</b>
                                             </a>
                                         </div>
