@@ -79,7 +79,7 @@ function processImageWithGD($srcPath, $destPath, $width, $height) {
     }
 
     $resizedImage = imagescale($srcImage, $width, $height);
-    imagewebp($resizedImage, $destPath, 95);
+    imagewebp($resizedImage, $destPath, 85);
     imagedestroy($srcImage);
     imagedestroy($resizedImage);
     return true;
